@@ -1,0 +1,7 @@
+{
+  "partners": [
+    {"name": "Uber Eats", "slug": "uber-eats", "status": "coming-soon", "url": null},
+    {"name": "Grubhub", "slug": "grubhub", "status": "coming-soon", "url": null},
+    {"name": "DoorDash", "slug": "doordash", "status": "coming-soon", "url": null}
+  ]
+}

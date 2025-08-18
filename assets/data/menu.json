@@ -1,0 +1,29 @@
+{
+  "sections": [
+    {
+      "id": "signature",
+      "title": "Signature Menu",
+      "intro": "A curated glimpse. Full menu launching with our grand opening.",
+      "items": [
+        {"id": "brisket", "name": "36hr Smoked Brisket", "price": 28, "basePriceCents": 2800, "currency": "USD", "desc": "Thick cut, espresso & pepper bark, rendered perfection."},
+        {"id": "pulled_pork", "name": "Pulled Heritage Pork", "price": 19, "basePriceCents": 1900, "currency": "USD", "desc": "Applewood notes, subtle vinegar finish, house pickles."},
+        {"id": "ribs", "name": "Fire Glazed Ribs", "price": 24, "basePriceCents": 2400, "currency": "USD", "desc": "Sticky ember glaze, late-stage chili caramel lacquer."},
+        {"id": "cornbread", "name": "Charred Jalapeño Cornbread", "price": 8, "basePriceCents": 800, "currency": "USD", "desc": "Smoked honey butter & ember salt."},
+        {"id": "carrots", "name": "Coal-Roasted Carrots", "price": 11, "basePriceCents": 1100, "currency": "USD", "desc": "Tahini ash, herb crumble, citrus smoke."},
+        {"id": "pecan_cheesecake", "name": "Smoked Pecan Cheesecake", "price": 10, "basePriceCents": 1000, "currency": "USD", "desc": "Brown butter crust, burnt sugar drizzle."}
+      ]
+    },
+    {
+      "id": "seafood",
+      "title": "Seafood Favorites",
+      "items": [
+        {"id": "fish_fries", "name": "Fish & Fries", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": "Crisp seasoned fillets, house cut fries, citrus remoulade."},
+        {"id": "shrimp_fries", "name": "Shrimp & Fries", "price": 14, "basePriceCents": 1400, "currency": "USD", "desc": "Smoked-kissed shrimp, golden fries, ember aioli."},
+        {"id": "fish_shrimp_combo", "name": "Fish & Shrimp Combo", "price": 16, "basePriceCents": 1600, "currency": "USD", "desc": "Best of both with dual sauces."},
+        {"id": "fish_grits", "name": "Fish & Grits", "price": null, "basePriceCents": null, "currency": "USD", "desc": "Stone-ground cheddar grits, seared fillet, smoked tomato butter."},
+        {"id": "shrimp_grits", "name": "Shrimp & Grits", "price": null, "basePriceCents": null, "currency": "USD", "desc": "Low country style, charred scallion, ember broth."},
+        {"id": "shrimp_pasta", "name": "Shrimp Pasta", "price": null, "basePriceCents": null, "currency": "USD", "desc": "Garlic herb cream, charred lemon, fresh herbs."}
+      ]
+    }
+  ]
+}

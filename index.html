@@ -10,11 +10,16 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="image0.jpg" />
 	<meta property="og:url" content="https://example.com" />
+	<meta name="theme-color" content="#0f0f0f" />
+	<link rel="manifest" href="manifest.webmanifest" />
+	<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png" />
+	<link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/styles.css" />
-	<!-- TODO: Add real favicon -->
+	<!-- TODO: Replace placeholder icons with finalized brand versions -->
 	<script type="application/ld+json">
 	{
 		"@context": "https://schema.org",
@@ -26,10 +31,10 @@
 		"servesCuisine": ["Barbecue","Seafood"],
 		"address": {
 			"@type": "PostalAddress",
-			"streetAddress": "123 Ember Lane",
-			"addressLocality": "Your City",
-			"addressRegion": "ST",
-			"postalCode": "00000",
+			"streetAddress": "2 Joseph E Lowery Blvd",
+			"addressLocality": "Atlanta",
+			"addressRegion": "GA",
+			"postalCode": "30314",
 			"addressCountry": "US"
 		},
 		"openingHoursSpecification": [{
@@ -79,6 +84,9 @@
 					<li><a class="order-btn" href="#order">Order Online</a></li>
 				</ul>
 			</nav>
+			<button class="cart-trigger" aria-haspopup="dialog" aria-controls="cartPanel" aria-label="Open cart">
+				Cart <span class="cart-count" hidden>0</span>
+			</button>
 		</div>
 	</header>
 
@@ -87,7 +95,7 @@
 		<section class="hero" aria-label="Hero">
 			<picture>
 				<!-- Future: responsive sources -->
-				<img src="image0.jpg" alt="Brisket being sliced fresh from the smoker with rising smoke" loading="eager" />
+				<img src="image0.jpg" alt="Brisket being sliced fresh from the smoker with rising smoke" loading="eager" fetchpriority="high" width="1600" height="900" />
 			</picture>
 			<div class="hero-overlay">
 				<div class="hero-content container">
@@ -208,8 +216,8 @@
 					<h2 id="locationTitle" class="section-title">Find the Fire</h2>
 					<address>
 						<strong>Fire In Smoke BBQ House</strong><br />
-						123 Ember Lane<br />
-						Your City, ST 00000<br />
+						2 Joseph E Lowery Blvd<br />
+						Atlanta, GA 30314<br />
 						<a href="tel:+14045497665">404-549-7665</a><br />
 						<a href="mailto:Fire_n_smoke_bbq@outlook.com">Fire_n_smoke_bbq@outlook.com</a>
 					</address>
@@ -217,10 +225,17 @@
 						<li><span>Daily</span><span>11:00 am – 8:00 pm</span></li>
 					</ul>
 					<div class="map-cta">
-						<a class="btn small outline" href="https://maps.google.com" target="_blank" rel="noopener">Open in Maps</a>
+						<a class="btn small outline" href="https://www.google.com/maps/search/?api=1&query=2+Joseph+E+Lowery+Blvd+Atlanta+GA+30314" target="_blank" rel="noopener">Open in Maps</a>
 					</div>
 				</div>
-				<div class="map-placeholder" role="img" aria-label="Map placeholder">Map loading soon</div>
+				<div class="map-placeholder" role="img" aria-label="Map showing location on Joseph E Lowery Blvd">
+					<iframe title="Map to Fire In Smoke BBQ House" class="map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+						 src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=2+Joseph+E+Lowery+Blvd+Atlanta+GA+30314">
+					</iframe>
+					<noscript>
+						<a href="https://www.google.com/maps/search/?api=1&query=2+Joseph+E+Lowery+Blvd+Atlanta+GA+30314">View map</a>
+					</noscript>
+				</div>
 			</div>
 		</section>
 
@@ -263,6 +278,10 @@
 			<div class="container">
 				<h2 id="reservationsTitle" class="section-title">Reserve Or Reach Out</h2>
 				<form class="res-form" novalidate>
+					<!-- Honeypot field -->
+					<div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+						<label>Do not fill this out<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+					</div>
 					<div class="grid">
 						<label> Name
 							<input type="text" name="name" required placeholder="Jane Doe" />
@@ -331,14 +350,58 @@
 				</ul>
 			</nav>
 			<div class="social">
-				<a href="#" aria-label="Instagram" class="social-link">Instagram</a>
+				<a href="https://instagram.com/fire_in_smoke_bbq" target="_blank" rel="noopener" aria-label="Instagram @fire_in_smoke_bbq" class="social-link">Instagram</a>
 				<a href="#" aria-label="Facebook" class="social-link">Facebook</a>
-				<a href="#" aria-label="TikTok" class="social-link">TikTok</a>
+				<a href="https://tiktok.com/@Fire.in.smoke.bbq" target="_blank" rel="noopener" aria-label="TikTok @Fire.in.smoke.bbq" class="social-link">TikTok</a>
 			</div>
 			<div class="legal small">&copy; <span id="year"></span> Fire In Smoke BBQ House. All rights reserved.</div>
 		</div>
 	</footer>
-
+	<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
+		<button class="lightbox-close" aria-label="Close gallery">×</button>
+		<div class="lightbox-inner">
+			<img class="lightbox-img" alt="" />
+			<p class="lightbox-caption" id="lightboxCaption"></p>
+			<button class="lightbox-nav prev" aria-label="Previous image">‹</button>
+			<button class="lightbox-nav next" aria-label="Next image">›</button>
+		</div>
+	</div>
+	<div class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true">
+		<div class="cart-inner">
+			<div class="cart-head">
+				<h2 id="cartTitle">Your Order</h2>
+				<button class="cart-close" aria-label="Close cart">×</button>
+			</div>
+			<ul class="cart-lines" aria-live="polite"></ul>
+			<div class="cart-summary">
+				<div><span>Subtotal</span><span class="sum-subtotal">$0.00</span></div>
+				<div><span>Estimated Tax</span><span class="sum-tax">$0.00</span></div>
+				<div><span>Tip</span><span class="sum-tip">$0.00</span></div>
+				<div class="total"><span>Total</span><span class="sum-total">$0.00</span></div>
+			</div>
+			<div class="tip-select">
+				<label>Tip:
+					<select class="tip-input">
+						<option value="0">No Tip</option>
+						<option value="0.1">10%</option>
+						<option value="0.15">15%</option>
+						<option value="0.2">20%</option>
+					</select>
+				</label>
+			</div>
+			<button class="btn primary proceed-checkout" disabled>Checkout (Square)</button>
+			<p class="small dim">Payment form appears after clicking Checkout.</p>
+			<div class="checkout-container" hidden>
+				<form id="square-payment-form">
+					<div id="card-container"></div>
+					<button id="sq-pay" class="btn primary" disabled>Pay Now</button>
+					<div id="payment-status" class="small" aria-live="polite"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="toast-region" aria-live="polite" aria-atomic="true"></div>
 	<script src="assets/js/main.js" defer></script>
+	<script>if(location.protocol.startsWith('http')){ if('serviceWorker' in navigator){ window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(console.warn)); }} else { console.info('Service worker skipped on non-http(s) protocol'); }</script>
 </body>
 </html>

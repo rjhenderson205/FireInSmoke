@@ -4,59 +4,52 @@ Premium, modern barbecue & seafood restaurant landing site. Focused on elevated 
 
 ## Features
 - Hero with atmospheric overlay & clear CTAs
-- Signature menu + Seafood Favorites subsection
+- Data-driven menu (fetches `assets/data/menu.json`)
+- Seafood Favorites subsection
 - Contact & Social section (phone, email, Instagram, TikTok)
-- Delivery partners placeholder (Uber Eats, Grubhub, DoorDash) ready for link activation
-- Location & hours (single daily schedule) + map placeholder
-- Reservation request placeholder form (progressive enhancement ready)
-- Accessible navigation (skip link, ARIA labels, keyboard focus styles)
-- Smooth scrolling & animated fade‑ins via IntersectionObserver
-- JSON-LD structured data (Restaurant schema) for SEO & discovery
+- Delivery partners dynamic buttons (reads `assets/data/partners.json`)
+- Gallery with lightbox modal (keyboard + focus trap)
+- Reservation form with validation, honeypot, aria-live feedback
+- PWA basics: `manifest.webmanifest`, service worker caching core shell, offline fallback
+- Structured data (Restaurant JSON-LD)
+- Accessible navigation (skip link, ARIA labels, reduced motion support)
+- Smooth scrolling & animated fade‑ins (IntersectionObserver)
 - Responsive grid + fluid typography
 
-## Tech Stack
-Pure static: HTML5, CSS (custom properties, modern layout), vanilla JS (no dependencies).
+## Data Files
+`assets/data/menu.json` – sections & items (null price => placeholder).  
+`assets/data/partners.json` – partner name, slug, status (`coming-soon` | `live`) and URL.
 
-## Structure
+Update a partner to live:
+```json
+{ "name": "Uber Eats", "slug": "uber-eats", "status": "live", "url": "https://www.ubereats.com/your-store" }
 ```
-index.html
-assets/
-  css/styles.css
-  js/main.js
-image0.jpg
-```
+Buttons auto-enable with proper link.
 
-## Integrations (Future)
-Activate delivery partner buttons by replacing disabled anchors with real links:
-```html
-<a class="partner" href="https://www.ubereats.com/your-store" target="_blank" rel="noopener">Uber Eats</a>
-```
-Add reservation platform embed (e.g., OpenTable) within the `#reservations` section when credentials are available.
+## Lightbox
+Gallery placeholders become interactive; replace each `.g-item` with `<img data-gallery-item data-src="/path" alt="..."/>` when images ready. Lightbox currently reuses `image0.jpg` as placeholder.
 
-## SEO / Metadata
-- Page title & description set
-- Open Graph tags included
-- Restaurant JSON-LD includes cuisine, menu items, hours, contact & social profiles
-
-## Customization Tips
-- Replace `image0.jpg` with optimized hero + create responsive `<source>` sets
-- Adjust color palette via `:root` CSS variables
-- Add additional menu sections using `.menu-subgroup`
-- Provide actual pricing for items with `$—`
-
-## Performance Notes
-- Single network round trips for fonts + one hero image
-- Minimal JS (~ small footprint) loaded with `defer`
-- Consider adding image lazy loading & compression pipeline as site grows
+## PWA / Offline
+Service worker (`sw.js`) precaches core assets and serves `offline.html` when network missing. Increment `CACHE_NAME` in `sw.js` when deploying new versions.
 
 ## Accessibility
-- Semantic headings & landmarks
-- Color contrast meets WCAG AA for text on dark backgrounds
-- Keyboard focus outline preserved & enhanced
-- Skip link for bypassing navigation
+- Focus trap in lightbox
+- `aria-live` region for form submission states
+- Honeypot invisible to assistive tech (visually hidden off-canvas)
+- Reduced motion respects `prefers-reduced-motion`.
+
+## Performance Notes
+- Add optimized hero and gallery images (WebP/AVIF) later with `<source>`.
+- Consider inlining critical CSS (above-the-fold) in production build.
 
 ## Deployment
-Any static host (GitHub Pages, Netlify, Vercel, S3). Ensure correct caching headers for fonts & images.
+Static hosting (GitHub Pages, Netlify, Vercel). Ensure service worker path stays at root.
+
+## Next Ideas
+- Real image assets & responsive sources
+- Ordering platform deep links
+- Analytics events for conversions
+- Additional structured data (geo, priceRange, aggregateRating)
 
 ## License
 Proprietary (update if you intend to open source).
