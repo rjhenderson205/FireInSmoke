@@ -350,6 +350,23 @@
   const tipEl = panel?.querySelector('.sum-tip');
   const totalEl = panel?.querySelector('.sum-total');
   const tipSelect = panel?.querySelector('.tip-input');
+  const modeDisplay = panel?.querySelector('[data-fulfillment-mode]');
+  const fulfillmentRadios = panel?.querySelectorAll('input[name="fulfillment"]');
+  let fulfillmentMode = localStorage.getItem('fis_fulfillment') || 'pickup';
+  function syncFulfillmentUI(){
+    fulfillmentRadios.forEach(r=>{ r.checked = (r.value===fulfillmentMode); });
+    if(modeDisplay) modeDisplay.textContent = fulfillmentMode.charAt(0).toUpperCase()+fulfillmentMode.slice(1);
+  }
+  syncFulfillmentUI();
+  fulfillmentRadios.forEach(r=>{
+    r.addEventListener('change', ()=>{
+      if(r.disabled) return;
+      fulfillmentMode = r.value;
+      localStorage.setItem('fis_fulfillment', fulfillmentMode);
+      syncFulfillmentUI();
+      announce(`Fulfillment method set to ${fulfillmentMode}.`);
+    });
+  });
 
   function persist(){ localStorage.setItem(storageKey, JSON.stringify(cart)); updateBadge(); }
   function updateBadge(){ const badge = document.querySelector('.cart-count'); if(!badge) return; const count = cart.reduce((a,l)=>a+l.qty,0); badge.textContent = count; badge.hidden = count===0; badge.classList.add('pulse'); setTimeout(()=>badge.classList.remove('pulse'),700); }

@@ -417,11 +417,16 @@
 			</div>
 			<ul class="cart-lines" aria-live="polite"></ul>
 			<div class="cart-summary">
+					<div class="fulfillment-row"><span>Method</span><span class="fulfillment-mode" data-fulfillment-mode>Pickup</span></div>
 				<div><span>Subtotal</span><span class="sum-subtotal">$0.00</span></div>
 				<div><span>Estimated Tax</span><span class="sum-tax">$0.00</span></div>
 				<div><span>Tip</span><span class="sum-tip">$0.00</span></div>
 				<div class="total"><span>Total</span><span class="sum-total">$0.00</span></div>
 			</div>
+				<div class="fulfillment-chooser" aria-label="Order method">
+					<label class="fulfill-opt"><input type="radio" name="fulfillment" value="pickup" checked> <span>Pickup</span></label>
+					<label class="fulfill-opt"><input type="radio" name="fulfillment" value="delivery" disabled> <span>Delivery <small class="dim">(coming soon)</small></span></label>
+				</div>
 			<div class="tip-select">
 				<label>Tip:
 					<select class="tip-input">
