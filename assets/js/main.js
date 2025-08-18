@@ -62,13 +62,32 @@
   if(!menuSection) return;
   const dataContainerSignature = menuSection.querySelector('.menu-grid');
   const seafoodSubgroup = menuSection.querySelector('.menu-subgroup');
+  const originalSignatureHTML = dataContainerSignature ? dataContainerSignature.innerHTML : '';
+  const originalSeafood = seafoodSubgroup ? seafoodSubgroup.outerHTML : '';
+  // Skeleton placeholders (overlay style) instead of wiping original first
+  let removedOriginal = false;
+  if(dataContainerSignature){
+    dataContainerSignature.classList.add('skeleton-loading');
+    if(!dataContainerSignature.dataset.skeleton){
+      const skelFrag = document.createDocumentFragment();
+      for(let i=0;i<6;i++){ const sk = document.createElement('div'); sk.className='skel-item'; skelFrag.appendChild(sk); }
+      dataContainerSignature.dataset.skeleton='true';
+      // Temporarily append skeletons AFTER original so layout height preserved
+      const skelWrapper = document.createElement('div');
+      skelWrapper.className='skel-wrapper';
+      skelWrapper.appendChild(skelFrag);
+      dataContainerSignature.appendChild(skelWrapper);
+    }
+  }
   try {
     const res = await fetch('assets/data/menu.json', { cache: 'no-cache' });
     if(!res.ok) throw new Error('Menu fetch failed');
     const menuData = await res.json();
     if(!menuData.sections) return;
-    // Clear existing static items
+    // Now safely replace with dynamic
+    removedOriginal = true;
     dataContainerSignature.innerHTML = '';
+    dataContainerSignature.classList.remove('skeleton-loading');
     if(seafoodSubgroup){ seafoodSubgroup.remove(); }
     const frag = document.createDocumentFragment();
     menuData.sections.forEach(section => {
@@ -91,36 +110,47 @@
         menuSection.querySelector('.center').before(subgroup);
       }
     });
-    // Removed invalid attachCartHandlers() call (binding handled by cart logic listening to menuRendered)
+    // Force reveal of dynamically inserted fade-in elements (observer only bound to initial static nodes)
+    requestAnimationFrame(()=>{
+      menuSection.querySelectorAll('.fade-in:not(.visible)').forEach(el=>{
+        el.classList.add('visible');
+      });
+    });
     window.dispatchEvent(new CustomEvent('menuRendered'));
   } catch(err){
-    console.warn('Menu dynamic load failed, using static fallback.', err);
-    // Fallback: augment existing static menu items with Add buttons if they lack one
-    try {
-      const staticItems = menuSection.querySelectorAll('.menu-grid .menu-item');
-      staticItems.forEach(itemEl => {
-        if(itemEl.querySelector('.add-cart')) return; // already has
-        const titleEl = itemEl.querySelector('h3');
-        if(!titleEl) return;
-        const name = titleEl.childNodes[0].textContent.trim();
-        const priceSpan = titleEl.querySelector('.price');
-        if(!priceSpan) return;
-        const priceText = priceSpan.textContent.replace('$','');
-        const price = parseFloat(priceText);
-        if(isNaN(price)) return; // skip unknown price
-        const btn = document.createElement('button');
-        btn.className = 'add-cart';
-        const id = name.toLowerCase().replace(/[^a-z0-9]+/g,'_');
-        btn.dataset.id = id;
-        btn.dataset.name = name;
-        btn.dataset.price = String(Math.round(price*100));
-        btn.type='button';
-        btn.textContent='Add';
-        btn.setAttribute('aria-label', `Add ${name} to cart`);
-        itemEl.appendChild(btn);
-      });
+    console.warn('Menu dynamic load failed, restoring original static fallback.', err);
+    // Remove skeletons only, restore original content if we cleared it
+    if(dataContainerSignature){
+      dataContainerSignature.classList.remove('skeleton-loading');
+      if(removedOriginal){
+        dataContainerSignature.innerHTML = originalSignatureHTML;
+        if(originalSeafood && !menuSection.querySelector('.menu-subgroup')){
+          menuSection.querySelector('.container').insertAdjacentHTML('beforeend', originalSeafood);
+        }
+      } else {
+        // Remove skeleton wrapper nodes
+        dataContainerSignature.querySelectorAll('.skel-wrapper').forEach(w=>w.remove());
+      }
+      // Enhance static items with Add buttons
+      try {
+        const staticItems = dataContainerSignature.querySelectorAll('.menu-item');
+        staticItems.forEach(itemEl => {
+          if(itemEl.querySelector('.add-cart')) return;
+          const titleEl = itemEl.querySelector('h3'); if(!titleEl) return;
+          const name = titleEl.childNodes[0].textContent.trim();
+            const priceSpan = titleEl.querySelector('.price'); if(!priceSpan) return;
+          const priceText = priceSpan.textContent.replace('$',''); const price = parseFloat(priceText);
+          if(isNaN(price)) return;
+          const btn = document.createElement('button');
+          btn.className='add-cart'; const id = name.toLowerCase().replace(/[^a-z0-9]+/g,'_');
+          btn.dataset.id=id; btn.dataset.name=name; btn.dataset.price=String(Math.round(price*100)); btn.type='button'; btn.textContent='Add'; btn.setAttribute('aria-label',`Add ${name} to cart`);
+          itemEl.appendChild(btn);
+        });
+        // Ensure any static fade-ins are visible (in case original observer missed them)
+        menuSection.querySelectorAll('.fade-in:not(.visible)').forEach(el=> el.classList.add('visible'));
+      } catch(e2){ console.warn('Enhancement of static items failed', e2); }
       window.dispatchEvent(new CustomEvent('menuRendered'));
-    } catch(fbErr){ console.warn('Static fallback enhancement failed', fbErr); }
+    }
   }
   function buildMenuItem(item){
     const div = document.createElement('div');
@@ -132,6 +162,9 @@
   }
   function escapeHtml(str=''){ return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c])); }
   function escapeAttr(str=''){ return escapeHtml(str).replace(/"/g,'&quot;'); }
+  window.addEventListener('menuRendered', () => {
+    console.debug('[menuRendered] add-cart buttons count:', document.querySelectorAll('.add-cart').length);
+  }, { once:true });
 })();
 
 // Partners state logic
@@ -279,8 +312,8 @@
   let lastFocus = null;
 
   function persist(){ localStorage.setItem(storageKey, JSON.stringify(cart)); updateBadge(); }
-  function updateBadge(){ const badge = document.querySelector('.cart-count'); if(!badge) return; const count = cart.reduce((a,l)=>a+l.qty,0); badge.textContent = count; badge.hidden = count===0; }
-  function add(item){ const found = cart.find(l=>l.id===item.id); if(found) found.qty += 1; else cart.push({...item, qty:1}); persist(); render(); announce(`${item.name} added to cart.`); toast(`${item.name} added`); }
+  function updateBadge(){ const badge = document.querySelector('.cart-count'); if(!badge) return; const count = cart.reduce((a,l)=>a+l.qty,0); badge.textContent = count; badge.hidden = count===0; badge.classList.add('pulse'); setTimeout(()=>badge.classList.remove('pulse'),700); }
+  function add(item){ const found = cart.find(l=>l.id===item.id); if(found) found.qty += 1; else cart.push({...item, qty:1}); persist(); render(); announce(`${item.name} added to cart.`); toast(`${item.name} added`); const btn = document.querySelector(`.add-cart[data-id="${CSS.escape(item.id)}"]`); if(btn){ btn.classList.add('added','pulse'); btn.textContent='Added'; btn.setAttribute('aria-disabled','true'); btn.disabled=true; setTimeout(()=>{ btn.classList.remove('pulse'); },650); setTimeout(()=>{ btn.disabled=false; btn.removeAttribute('aria-disabled'); btn.classList.remove('added'); btn.textContent='Add'; }, 2300); } }
   function remove(id){ const line = cart.find(l=>l.id===id); cart = cart.filter(l=>l.id!==id); persist(); render(); if(line) announce(`${line.name} removed from cart.`); }
   function changeQty(id, delta){ const line = cart.find(l=>l.id===id); if(!line) return; line.qty += delta; if(line.qty<=0) remove(id); else { persist(); render(); announce(`${line.name} quantity ${line.qty}`); } }
   function currency(cents){ return '$' + (cents/100).toFixed(2); }
@@ -313,4 +346,17 @@
   // Initial
   updateBadge(); render(); attachAddButtons();
   window.addEventListener('menuRendered', ()=>{ attachAddButtons(); });
+})();
+
+// Hero parallax
+(function(){
+  const heroContent = document.querySelector('.hero-content');
+  if(!heroContent) return; heroContent.classList.add('parallax-hero');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(reduce.matches) return;
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY;
+    const limit = Math.min(60, y*0.15);
+    heroContent.style.transform = `translateY(${limit}px)`;
+  }, { passive:true });
 })();
