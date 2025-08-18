@@ -193,19 +193,46 @@
 			</div>
 		</section>
 
+		<!-- Catering & Events Feature -->
+		<section id="catering" class="feature-band section-pad" aria-labelledby="cateringTitle">
+			<div class="container split">
+				<div class="feature-text full">
+					<h2 id="cateringTitle" class="section-title">Catering & Events</h2>
+					<p>From intimate gatherings to bold corporate statements, we bring slow-smoked precision, seasonal sides, and on‑site carving theatrics. Elevate your next event with embers, aroma, and craft.</p>
+					<p><strong>Now booking fall & holiday dates.</strong></p>
+					<a href="#reservations" class="btn small">Inquire Today</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Hiring Feature -->
+		<!-- Hiring Feature moved to bottom -->
+
 		<!-- Gallery -->
 		<section id="gallery" class="gallery section-pad" aria-labelledby="galleryTitle">
 			<div class="container">
 				<h2 id="galleryTitle" class="section-title">Visual Taste</h2>
 				<div class="gallery-grid" data-gallery>
-					<div class="g-item shimmer" aria-hidden="true"></div>
-					<div class="g-item shimmer" aria-hidden="true"></div>
-					<div class="g-item shimmer" aria-hidden="true"></div>
-					<div class="g-item shimmer" aria-hidden="true"></div>
-					<div class="g-item shimmer" aria-hidden="true"></div>
-					<div class="g-item shimmer" aria-hidden="true"></div>
+					<figure class="g-item" data-full="assets/images/Ribsimg.webp">
+						<img src="assets/images/Ribsimg.webp" alt="Glazed ribs stacked on a wooden board" loading="lazy" />
+					</figure>
+					<figure class="g-item" data-full="assets/images/Plateimg.webp">
+						<img src="assets/images/Plateimg.webp" alt="Smoked barbecue plate with sides" loading="lazy" />
+					</figure>
+					<figure class="g-item" data-full="assets/images/Chicken.webp">
+						<img src="assets/images/Chicken.webp" alt="Seasoned smoked chicken close up" loading="lazy" />
+					</figure>
+					<figure class="g-item" data-full="assets/images/Plateimggg.webp">
+						<img src="assets/images/Plateimggg.webp" alt="Barbecue spread with brisket and cornbread" loading="lazy" />
+					</figure>
+					<figure class="g-item video" data-video="assets/images/RibPlate.mp4" data-poster="assets/images/Ribsimg2.webp" aria-label="Play rib plate video">
+						<img src="assets/images/Ribsimg2.webp" alt="Rib plate video thumbnail" loading="lazy" />
+					</figure>
+					<figure class="g-item video" data-video="assets/images/Plate%20video.mp4" data-poster="assets/images/Plateimg.webp" aria-label="Play plated food video">
+						<img src="assets/images/Plateimg.webp" alt="Plated food video thumbnail" loading="lazy" />
+					</figure>
 				</div>
-				<p class="gallery-note">Full gallery coming with launch. Follow us on social for teasers.</p>
+				<p class="gallery-note">Tap an image to enlarge. Videos will play in the viewer.</p>
 			</div>
 		</section>
 
@@ -332,6 +359,22 @@
 				<p class="small">Sign up for launch updates by completing the reservation form.</p>
 			</div>
 		</section>
+
+		<section id="hiring" class="feature-band alt section-pad feature-shrink" aria-labelledby="hiringTitle">
+			<div class="container split">
+				<div class="feature-text">
+					<h2 id="hiringTitle" class="section-title">Join The Pit Crew</h2>
+					<p>We’re assembling a team obsessed with detail, hospitality, and the craft of live‑fire cooking. Front of house, line, and pit positions opening as we ramp toward launch.</p>
+					<p>Grow with a concept focused on excellence, mentorship, and innovation.</p>
+					<a href="#contact" class="btn small outline">Register Interest</a>
+				</div>
+				<div class="feature-media">
+					<picture>
+						<img src="assets/images/Hiring.webp" alt="Team member tending smoker firebox" loading="lazy" />
+					</picture>
+				</div>
+			</div>
+		</section>
 	</main>
 
 	<footer class="site-footer">
@@ -360,7 +403,9 @@
 	<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image viewer">
 		<button class="lightbox-close" aria-label="Close gallery">×</button>
 		<div class="lightbox-inner">
-			<img class="lightbox-img" alt="" />
+			<div class="lightbox-stage" aria-live="polite">
+				<img class="lightbox-img" alt="" />
+			</div>
 			<p class="lightbox-caption" id="lightboxCaption"></p>
 			<button class="lightbox-nav prev" aria-label="Previous image">‹</button>
 			<button class="lightbox-nav next" aria-label="Next image">›</button>

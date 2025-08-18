@@ -135,6 +135,26 @@
       try {
         const staticItems = dataContainerSignature.querySelectorAll('.menu-item');
         staticItems.forEach(itemEl => {
+          // Inject thumbnail wrapper if missing
+          if(!itemEl.querySelector('.menu-thumb')){
+            const h3 = itemEl.querySelector('h3');
+            if(h3){
+              const nameId = h3.textContent.toLowerCase().split('$')[0].trim().replace(/[^a-z0-9]+/g,'_');
+              const thumbMap = { brisket:'Ribsimg.webp', pulled_heritage_pork:'Plateimg.webp', fire_glazed_ribs:'Ribsimg2.webp', charred_jalapeño_cornbread:'Plateimggg.webp', coal_roasted_carrots:'Chicken.webp', smoked_pecan_cheesecake:'Plateimg.webp' };
+              const file = thumbMap[nameId] || 'Plateimg.webp';
+              const img = document.createElement('div');
+              img.className='menu-thumb';
+                img.innerHTML = `<img class="blur-up" src="assets/images/${file}" alt="${h3.childNodes[0].textContent.trim()}" loading="lazy" decoding="async" width="144" height="144">`;
+              itemEl.prepend(img);
+              const wrap = document.createElement('div');
+              wrap.className='menu-info';
+              // Move existing h3 + p into wrap
+              const p = itemEl.querySelector('p');
+              wrap.appendChild(h3);
+              if(p) wrap.appendChild(p);
+              itemEl.insertBefore(wrap, itemEl.querySelector('.add-cart'));
+            }
+          }
           if(itemEl.querySelector('.add-cart')) return;
           const titleEl = itemEl.querySelector('h3'); if(!titleEl) return;
           const name = titleEl.childNodes[0].textContent.trim();
@@ -156,7 +176,21 @@
     const div = document.createElement('div');
     div.className = 'menu-item fade-in';
     const price = item.price == null ? '$—' : '$' + item.price;
-    div.innerHTML = `<h3>${escapeHtml(item.name)} <span class="price">${price}</span></h3><p>${escapeHtml(item.desc)}</p>` +
+    // Simple thumbnail mapping (extend later). Fallback to ribs image if specific not mapped.
+    const thumbMap = {
+      brisket: 'Ribsimg.webp',
+      pulled_pork: 'Plateimg.webp',
+      ribs: 'Ribsimg2.webp',
+      cornbread: 'Plateimggg.webp',
+      carrots: 'Chicken.webp',
+      pecan_cheesecake: 'Plateimg.webp',
+      fish_fries: 'Plateimggg.webp',
+      shrimp_fries: 'Plateimg.webp',
+      fish_shrimp_combo: 'Ribsimg.webp'
+    };
+    const imgFile = thumbMap[item.id] || 'Plateimg.webp';
+    const imgTag = `<div class="menu-thumb"><img src="assets/images/${imgFile}" alt="${escapeAttr(item.name)}" loading="lazy"></div>`;
+    div.innerHTML = imgTag + `<div class="menu-info"><h3>${escapeHtml(item.name)} <span class="price">${price}</span></h3><p>${escapeHtml(item.desc)}</p></div>` +
       (item.basePriceCents ? `<button class="add-cart" data-id="${escapeAttr(item.id)}" data-name="${escapeAttr(item.name)}" data-price="${item.basePriceCents}" aria-label="Add ${escapeAttr(item.name)} to cart">Add</button>` : `<button class="add-cart disabled" aria-disabled="true" title="Temporarily unavailable">Unavailable</button>`);
     return div;
   }
@@ -164,6 +198,11 @@
   function escapeAttr(str=''){ return escapeHtml(str).replace(/"/g,'&quot;'); }
   window.addEventListener('menuRendered', () => {
     console.debug('[menuRendered] add-cart buttons count:', document.querySelectorAll('.add-cart').length);
+    // Progressive image reveal
+    document.querySelectorAll('.menu-thumb img.blur-up').forEach(img => {
+      if(img.complete){ img.classList.add('loaded'); }
+      else img.addEventListener('load', () => img.classList.add('loaded'), { once:true });
+    });
   }, { once:true });
 })();
 
@@ -237,17 +276,22 @@
 (function(){
   const gallery = document.querySelector('[data-gallery]');
   if(!gallery) return;
-  // Generate placeholder clickable items for now
+  // Real gallery items (figures) with optional data-video attribute
   const items = Array.from(gallery.querySelectorAll('.g-item'));
   items.forEach((el, i) => {
     el.tabIndex = 0;
     el.setAttribute('role','button');
-    el.setAttribute('aria-label', 'Open image '+ (i+1));
+    if(!el.getAttribute('aria-label')){
+      const img = el.querySelector('img');
+      const baseLabel = img?.getAttribute('alt') || 'Gallery item';
+      el.setAttribute('aria-label', baseLabel + ' (open)');
+    }
     el.addEventListener('click', () => open(i));
     el.addEventListener('keypress', e => { if(e.key==='Enter' || e.key===' '){ e.preventDefault(); open(i);} });
   });
   const lb = document.getElementById('lightbox');
   if(!lb) return;
+  const stage = lb.querySelector('.lightbox-stage');
   const img = lb.querySelector('.lightbox-img');
   const caption = lb.querySelector('.lightbox-caption');
   const btnClose = lb.querySelector('.lightbox-close');
@@ -275,11 +319,33 @@
   }
   function nav(delta){ if(lock) return; index = (index + delta + items.length) % items.length; render(); }
   function render(){
-    // Placeholder: use hero image for all until real images available
-    const src = 'image0.jpg';
-    img.src = src;
-    img.alt = 'Gallery image '+ (index+1);
-    caption.textContent = 'Preview image ' + (index+1) + ' (placeholder)';
+    const el = items[index];
+    if(!el) return;
+    // Clear any existing video
+  // Clear stage to avoid stacking
+  Array.from(stage.children).forEach(ch=>{ if(ch!==img) ch.remove(); });
+  img.hidden=false;
+    const isVideo = el.hasAttribute('data-video');
+    if(isVideo){
+      const videoSrc = el.getAttribute('data-video');
+      const poster = el.getAttribute('data-poster') || '';
+      const vid = document.createElement('video');
+      vid.src = videoSrc;
+      vid.controls = true;
+      vid.autoplay = true;
+      vid.loop = true;
+      if(poster) vid.poster = poster;
+      vid.className = 'lightbox-video';
+      img.hidden = true;
+      stage.appendChild(vid);
+      caption.textContent = (el.querySelector('img')?.alt || 'Video') + ' (playing)';
+    } else {
+      const full = el.getAttribute('data-full') || el.querySelector('img')?.src || '';
+      img.src = full;
+      const alt = el.querySelector('img')?.getAttribute('alt') || ('Gallery image '+ (index+1));
+      img.alt = alt;
+      caption.textContent = alt;
+    }
   }
   btnClose.addEventListener('click', close);
   btnPrev.addEventListener('click', () => nav(-1));
