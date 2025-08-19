@@ -158,7 +158,7 @@
             const h3 = itemEl.querySelector('h3');
             if(h3){
               const nameId = h3.textContent.toLowerCase().split('$')[0].trim().replace(/[^a-z0-9]+/g,'_');
-              const thumbMap = { brisket:'Ribsimg.webp', pulled_heritage_pork:'Plateimg.webp', fire_glazed_ribs:'Ribsimg2.webp', charred_jalapeño_cornbread:'Plateimggg.webp', coal_roasted_carrots:'Chicken.webp', smoked_pecan_cheesecake:'Plateimg.webp' };
+              const thumbMap = { pulled_heritage_pork:'Plateimg.webp', fire_glazed_ribs:'Ribsimg2.webp', charred_jalapeño_cornbread:'Plateimggg.webp', coal_roasted_carrots:'Chicken.webp', smoked_pecan_cheesecake:'Plateimg.webp' };
               const file = thumbMap[nameId] || 'Plateimg.webp';
               const img = document.createElement('div');
               img.className='menu-thumb';
@@ -196,7 +196,6 @@
     const price = item.price == null ? '$—' : '$' + item.price;
     // Simple thumbnail mapping (extend later). Fallback to ribs image if specific not mapped.
     const thumbMap = {
-      brisket: 'Ribsimg.webp',
       pulled_pork: 'Plateimg.webp',
       ribs: 'Ribsimg2.webp',
       cornbread: 'Plateimggg.webp',

@@ -53,8 +53,8 @@ Menu JSON structure:
 ```jsonc
 {
   "sections": [
-    { "id": "signature", "title": "Signature Menu", "items": [
-      { "id": "brisket", "name": "36hr Smoked Brisket", "desc": "Thick cut...", "basePriceCents": 2800 }
+    { "id": "meats", "title": "Meats", "items": [
+      { "id": "sausage_plate", "name": "Sausage Plate (Includes 2 sides)", "desc": "Smoked sausage with two classic sides.", "basePriceCents": 1200 }
     ] }
   ]
 }

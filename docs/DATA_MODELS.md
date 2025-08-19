@@ -5,10 +5,10 @@
 {
   "sections": [
     {
-      "id": "signature",
-      "title": "Signature Menu",
+      "id": "meats",
+      "title": "Meats",
       "items": [
-        { "id": "brisket", "name": "36hr Smoked Brisket", "desc": "Thick cut, espresso & pepper bark, rendered perfection.", "basePriceCents": 2800 }
+        { "id": "sausage_plate", "name": "Sausage Plate (Includes 2 sides)", "desc": "Smoked sausage with two classic sides.", "basePriceCents": 1200 }
       ]
     }
   ]
@@ -39,9 +39,9 @@ Fields:
 ## Cart Line (localStorage `fis_cart`)
 ```jsonc
 {
-  "id": "brisket",
-  "name": "36hr Smoked Brisket",
-  "priceCents": 2800,
+  "id": "sausage_plate",
+  "name": "Sausage Plate (Includes 2 sides)",
+  "priceCents": 1200,
   "qty": 1
 }
 ```
