@@ -110,6 +110,27 @@
 			</div>
 		</section>
 
+		<!-- Testimonials -->
+		<section id="testimonials" class="testimonials section-pad" aria-labelledby="testimonialsTitle">
+			<div class="container">
+				<h2 id="testimonialsTitle" class="section-title">Early Praise</h2>
+				<div class="testi-grid">
+					<figure class="testi fade-in">
+						<blockquote>“Brisket so tender it barely needed the knife. Depth of smoke without overpowering.”</blockquote>
+						<figcaption>— Local Pitmaster</figcaption>
+					</figure>
+					<figure class="testi fade-in">
+						<blockquote>“A modern lens on heritage barbecue. Sides that actually compete with the meats.”</blockquote>
+						<figcaption>— Food Writer</figcaption>
+					</figure>
+					<figure class="testi fade-in">
+						<blockquote>“Elevated plating & hospitality while honoring old‑school fire.”</blockquote>
+						<figcaption>— Early Guest</figcaption>
+					</figure>
+				</div>
+			</div>
+		</section>
+
 		<!-- Highlights -->
 		<section class="highlights section-pad" aria-labelledby="highlightsTitle">
 			<div class="container">
@@ -135,6 +156,13 @@
 		<section id="menu" class="menu-preview section-pad" aria-labelledby="menuTitle">
 			<div class="container">
 				<h2 id="menuTitle" class="section-title">Signature Menu</h2>
+				<ul class="menu-chips" aria-hidden="true">
+					<li>Brisket</li>
+					<li>Ribs</li>
+					<li>Pork</li>
+					<li>Sides</li>
+					<li>Dessert</li>
+				</ul>
 				<p class="section-intro">A curated glimpse. Full menu launching with our grand opening.</p>
 				<div class="menu-grid">
 					<div class="menu-item fade-in">
@@ -209,6 +237,25 @@
 		<!-- Hiring Feature moved to bottom -->
 
 		<!-- Gallery -->
+		<section id="process" class="feature-band alt section-pad feature-shrink" aria-labelledby="processTitle">
+			<div class="container split">
+				<div class="feature-text">
+					<h2 id="processTitle" class="section-title">Craft & Process</h2>
+					<p>Low & slow isn’t a tagline— it’s a discipline. Fire management every 15 minutes. Rest periods measured, not guessed. Cuts trimmed for optimized render. Wood selected for moisture and density.</p>
+					<ul class="process-points">
+						<li><strong>Wood:</strong> Post oak & fruitwood accents</li>
+						<li><strong>Smoke Windows:</strong> Clean blue prioritized</li>
+						<li><strong>Hold Method:</strong> Low-temp humidity cabinets</li>
+						<li><strong>Finish:</strong> Ember glaze reductions</li>
+					</ul>
+				</div>
+				<div class="feature-media">
+					<picture>
+						<img src="assets/images/FireInSmokeShirtCustomer.webp" alt="Pitmaster tending live fire in smoker" loading="lazy" />
+					</picture>
+				</div>
+			</div>
+		</section>
 		<section id="gallery" class="gallery section-pad" aria-labelledby="galleryTitle">
 			<div class="container">
 				<h2 id="galleryTitle" class="section-title">Visual Taste</h2>
@@ -445,6 +492,12 @@
 		</div>
 	</div>
 	<div class="toast-region" aria-live="polite" aria-atomic="true"></div>
+	<div class="mini-cart" aria-hidden="true" aria-label="Cart summary" tabindex="-1">
+		<button class="mini-cart-open" aria-label="Open cart panel">
+			<span class="mini-cart-label">Cart</span>
+			<span class="mini-cart-total" data-mini-cart-total>$0.00</span>
+		</button>
+	</div>
 	<script src="assets/js/main.js" defer></script>
 	<script>if(location.protocol.startsWith('http')){ if('serviceWorker' in navigator){ window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(console.warn)); }} else { console.info('Service worker skipped on non-http(s) protocol'); }</script>
 </body>

@@ -390,6 +390,12 @@
 
   function persist(){ localStorage.setItem(storageKey, JSON.stringify(cart)); updateBadge(); }
   function updateBadge(){ const badge = document.querySelector('.cart-count'); if(!badge) return; const count = cart.reduce((a,l)=>a+l.qty,0); badge.textContent = count; badge.hidden = count===0; badge.classList.add('pulse'); setTimeout(()=>badge.classList.remove('pulse'),700); }
+  function updateMiniCart(){
+    const miniTotalEl = document.querySelector('[data-mini-cart-total]');
+    if(!miniTotalEl) return;
+    const subtotal = cart.reduce((a,l)=> a + (l.priceCents * l.qty),0);
+    miniTotalEl.textContent = '$' + (subtotal/100).toFixed(2);
+  }
   function add(item){ const found = cart.find(l=>l.id===item.id); if(found) found.qty += 1; else cart.push({...item, qty:1}); persist(); render(); announce(`${item.name} added to cart.`); toast(`${item.name} added`); const btn = document.querySelector(`.add-cart[data-id="${CSS.escape(item.id)}"]`); if(btn){ btn.classList.add('added','pulse'); btn.textContent='Added'; btn.setAttribute('aria-disabled','true'); btn.disabled=true; setTimeout(()=>{ btn.classList.remove('pulse'); },650); setTimeout(()=>{ btn.disabled=false; btn.removeAttribute('aria-disabled'); btn.classList.remove('added'); btn.textContent='Add'; }, 2300); } }
   function remove(id){ const line = cart.find(l=>l.id===id); cart = cart.filter(l=>l.id!==id); persist(); render(); if(line) announce(`${line.name} removed from cart.`); }
   function changeQty(id, delta){ const line = cart.find(l=>l.id===id); if(!line) return; line.qty += delta; if(line.qty<=0) remove(id); else { persist(); render(); announce(`${line.name} quantity ${line.qty}`); } }
@@ -402,6 +408,7 @@
     tipEl.textContent = currency(tip);
     totalEl.textContent = currency(total);
     checkoutBtn.disabled = cart.length===0;
+  updateMiniCart();
   }
   function open(){ if(!panel) return; lastFocus = document.activeElement; panel.classList.add('open'); panel.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; panel.querySelector('.cart-close').focus(); trapSetup(); }
   function close(){ panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); document.body.style.overflow=''; lastFocus?.focus(); trapRemove(); }
@@ -448,7 +455,9 @@
   function escapeHtml(str=''){ return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c])); }
   // Initial
   updateBadge(); render(); attachAddButtons();
+  updateMiniCart();
   window.addEventListener('menuRendered', ()=>{ attachAddButtons(); });
+  document.querySelector('.mini-cart-open')?.addEventListener('click', () => { trigger?.click(); });
 })();
 
 // Hero parallax
