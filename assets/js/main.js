@@ -38,6 +38,21 @@
   });
 })();
 
+// Square storefront quick integration (Phase 1)
+(function(){
+  const SQUARE_URL = 'https://fire-in-smoke-bbq.square.site';
+  const links = document.querySelectorAll('[data-square-order]');
+  links.forEach(a => {
+    if(a.tagName === 'A') a.href = SQUARE_URL;
+    if(!a.dataset.squareBound){
+      a.dataset.squareBound = '1';
+      a.addEventListener('click', ()=>{
+        console.debug('[square] order link click');
+      });
+    }
+  });
+})();
+
 // Smooth scroll for internal anchor links
 (function(){
   const links = document.querySelectorAll('a[href^="#"]');
