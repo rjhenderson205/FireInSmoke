@@ -350,6 +350,11 @@
   const tipEl = panel?.querySelector('.sum-tip');
   const totalEl = panel?.querySelector('.sum-total');
   const tipSelect = panel?.querySelector('.tip-input');
+  const subtotalEl = panel?.querySelector('.sum-subtotal');
+  const taxEl = panel?.querySelector('.sum-tax');
+  const checkoutBtn = panel?.querySelector('.proceed-checkout');
+  const checkoutContainer = panel?.querySelector('.checkout-container');
+  const toastRegion = document.querySelector('.toast-region');
   const modeDisplay = panel?.querySelector('[data-fulfillment-mode]');
   const fulfillmentRadios = panel?.querySelectorAll('input[name="fulfillment"]');
   let fulfillmentMode = localStorage.getItem('fis_fulfillment') || 'pickup';
