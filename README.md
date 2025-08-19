@@ -64,6 +64,33 @@ Static hosting (GitHub Pages / Netlify / Vercel). Steps & cache busting tips in 
 ## 🛠 Development
 No build step. Open `index.html` via local server (for service worker) e.g. VS Code Live Server or simple `python -m http.server`.
 
+### Hybrid Square Checkout (Beta)
+Backend in `server/` exposes `POST /api/create-checkout` to transform the local cart into a Square payment link.
+
+Flow:
+1. Frontend cart (localStorage) collects items from `menu.json`.
+2. Checkout button posts `{ cart:[{id,name,qty,priceCents}] }`.
+3. Server maps `id` -> Square Catalog object id via `assets/data/square-map.json`.
+4. Server creates Order & Payment Link (Square) and returns `checkoutUrl`.
+5. Frontend redirects user to Square-hosted payment page.
+
+Setup:
+1. Copy `server/.env.example` to `server/.env` and fill `SQUARE_ACCESS_TOKEN`, `SQUARE_LOCATION_ID` (sandbox first).
+2. Populate real catalog IDs in `assets/data/square-map.json`.
+3. In `server/`: `npm install` then `npm run dev`.
+4. Serve frontend (same origin recommended) or adjust CORS in `server.js`.
+
+Env Vars:
+| Var | Description |
+|-----|-------------|
+| SQUARE_ACCESS_TOKEN | Square access token (keep private) |
+| SQUARE_LOCATION_ID  | Square location identifier |
+| SQUARE_API_BASE     | Sandbox or prod base (defaults sandbox) |
+
+Toggle: In `assets/js/main.js` set `const HYBRID = true/false` near checkout logic.
+
+Security TODO: Replace client-sent `priceCents` with authoritative lookup from Square Catalog to prevent tampering.
+
 ## 🔐 Offline & Caching
 `sw.js` precaches core shell + offline.html fallback. Increment cache version constant when changing critical assets.
 
@@ -78,6 +105,7 @@ No build step. Open `index.html` via local server (for service worker) e.g. VS C
 
 ## 🧪 Future Roadmap
 - Square payment form integration
+- Harden hybrid checkout (catalog price reconciliation, discounts, taxes via Square)
 - Responsive `<picture>` sources (AVIF/WebP + fallbacks)
 - Analytics events (CTA, add‑to‑cart, conversions)
 - Menu item options / modifiers

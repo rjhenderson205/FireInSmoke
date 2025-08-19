@@ -1,0 +1,18 @@
+{
+  "name": "fire-in-smoke-backend",
+  "version": "0.1.0",
+  "description": "Hybrid Square checkout backend for Fire In Smoke BBQ House",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2",
+    "nanoid": "^5.0.4"
+  }
+}

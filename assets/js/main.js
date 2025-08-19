@@ -418,6 +418,32 @@
   tipSelect?.addEventListener('change', render);
   document.addEventListener('keydown', e => { if(e.key==='Escape' && panel?.classList.contains('open')) close(); });
   checkoutBtn?.addEventListener('click', () => { checkoutContainer.hidden = false; checkoutBtn.disabled = true; initSquarePlaceholder(); });
+  // Hybrid Square checkout integration
+  const HYBRID = true; // toggle if you want to revert to static Square site redirect
+  async function hybridCheckout(){
+    if(!cart.length){ toast('Cart empty'); return; }
+    const payload = { cart: cart.map(l=> ({ id:l.id, name:l.name, qty:l.qty, priceCents:l.priceCents })) };
+    try {
+      announce('Creating checkout...');
+      const res = await fetch('/api/create-checkout', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+      if(!res.ok){ const err = await res.json().catch(()=>({})); throw new Error(err.error||'Checkout failed'); }
+      const data = await res.json();
+      if(data.checkoutUrl){ window.location.href = data.checkoutUrl; } else { throw new Error('No checkout URL returned'); }
+    } catch(err){
+      console.error('[checkout]', err);
+  // Graceful fallback: redirect to public Square ordering site if backend unavailable
+  const FALLBACK_SQUARE_URL = 'https://fire-in-smoke-bbq.square.site';
+  toast('Checkout unavailable, redirecting...');
+  announce('Checkout backend unavailable, redirecting to Square site.');
+  checkoutBtn.disabled = false;
+  setTimeout(()=>{ window.location.href = FALLBACK_SQUARE_URL; }, 900);
+    }
+  }
+  if(checkoutBtn){
+    checkoutBtn.addEventListener('click', e => {
+      if(HYBRID){ e.preventDefault(); e.stopPropagation(); hybridCheckout(); }
+    });
+  }
   function initSquarePlaceholder(){ const status = panel.querySelector('#payment-status'); if(status) status.textContent='Square payment form will mount here (backend required).'; }
   function escapeHtml(str=''){ return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c])); }
   // Initial

@@ -1,0 +1,6 @@
+{
+  "_comment": "Map local menu item ids to Square catalog object IDs. Replace SAMPLE_IDs with real catalog object ids from Square Dashboard or Catalog API.",
+  "brisket": "SAMPLE_ID_BRISKET",
+  "pulled_pork": "SAMPLE_ID_PULLED_PORK",
+  "ribs": "SAMPLE_ID_RIBS"
+}
