@@ -395,6 +395,13 @@
     if(!miniTotalEl) return;
     const subtotal = cart.reduce((a,l)=> a + (l.priceCents * l.qty),0);
     miniTotalEl.textContent = '$' + (subtotal/100).toFixed(2);
+  // Mobile bar
+  const mcbTotal = document.querySelector('[data-mcb-total]');
+  const mcbCount = document.querySelector('[data-mcb-count]');
+  if(mcbTotal) mcbTotal.textContent = '$' + (subtotal/100).toFixed(2);
+  if(mcbCount){ const count = cart.reduce((a,l)=>a+l.qty,0); mcbCount.textContent = count; }
+  const bar = document.querySelector('.mobile-cart-bar');
+  if(bar){ bar.style.display = cart.length ? 'flex' : 'none'; }
   }
   function add(item){ const found = cart.find(l=>l.id===item.id); if(found) found.qty += 1; else cart.push({...item, qty:1}); persist(); render(); announce(`${item.name} added to cart.`); toast(`${item.name} added`); const btn = document.querySelector(`.add-cart[data-id="${CSS.escape(item.id)}"]`); if(btn){ btn.classList.add('added','pulse'); btn.textContent='Added'; btn.setAttribute('aria-disabled','true'); btn.disabled=true; setTimeout(()=>{ btn.classList.remove('pulse'); },650); setTimeout(()=>{ btn.disabled=false; btn.removeAttribute('aria-disabled'); btn.classList.remove('added'); btn.textContent='Add'; }, 2300); } }
   function remove(id){ const line = cart.find(l=>l.id===id); cart = cart.filter(l=>l.id!==id); persist(); render(); if(line) announce(`${line.name} removed from cart.`); }
@@ -458,6 +465,7 @@
   updateMiniCart();
   window.addEventListener('menuRendered', ()=>{ attachAddButtons(); });
   document.querySelector('.mini-cart-open')?.addEventListener('click', () => { trigger?.click(); });
+  document.querySelector('.mobile-cart-btn')?.addEventListener('click', () => { trigger?.click(); });
 })();
 
 // Hero parallax

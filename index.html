@@ -94,8 +94,9 @@
 		<!-- Hero -->
 		<section class="hero" aria-label="Hero">
 			<picture>
-				<!-- Future: responsive sources -->
-				<img src="image0.jpg" alt="Brisket being sliced fresh from the smoker with rising smoke" loading="eager" fetchpriority="high" width="1600" height="900" />
+				<source media="(max-width:640px)" srcset="image0.jpg" />
+				<source media="(max-width:1024px)" srcset="image0.jpg" />
+				<img src="image0.jpg" alt="Brisket being sliced fresh from the smoker with rising smoke" loading="eager" fetchpriority="high" width="1600" height="900" sizes="(max-width:640px) 100vw, (max-width:1024px) 100vw, 100vw" />
 			</picture>
 			<div class="hero-overlay">
 				<div class="hero-content container">
@@ -496,6 +497,13 @@
 		<button class="mini-cart-open" aria-label="Open cart panel">
 			<span class="mini-cart-label">Cart</span>
 			<span class="mini-cart-total" data-mini-cart-total>$0.00</span>
+		</button>
+	</div>
+	<div class="mobile-cart-bar" aria-hidden="true">
+		<button class="mobile-cart-btn" aria-label="Open cart">
+			<span class="mcb-count" data-mcb-count>0</span>
+			<span class="mcb-label">View Cart</span>
+			<span class="mcb-total" data-mcb-total>$0.00</span>
 		</button>
 	</div>
 	<script src="assets/js/main.js" defer></script>
