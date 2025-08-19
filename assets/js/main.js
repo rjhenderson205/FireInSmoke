@@ -103,10 +103,13 @@
     removedOriginal = true;
     dataContainerSignature.innerHTML = '';
     dataContainerSignature.classList.remove('skeleton-loading');
-    if(seafoodSubgroup){ seafoodSubgroup.remove(); }
+  // Remove any existing fallback subgroups (was previously only removing seafood)
+  menuSection.querySelectorAll('.menu-subgroup').forEach(sg => sg.remove());
     const frag = document.createDocumentFragment();
+    // Determine which section should populate the primary grid. Prefer explicit 'signature'; otherwise first section.
+    const primaryId = menuData.sections.some(s => s.id === 'signature') ? 'signature' : menuData.sections[0].id;
     menuData.sections.forEach(section => {
-      if(section.id === 'signature'){
+      if(section.id === primaryId){
         section.items.forEach(item => frag.appendChild(buildMenuItem(item)));
         dataContainerSignature.appendChild(frag);
       } else {

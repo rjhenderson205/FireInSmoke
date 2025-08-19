@@ -1,28 +1,45 @@
 {
   "sections": [
     {
-      "id": "signature",
-      "title": "Signature Menu",
-      "intro": "A curated glimpse. Full menu launching with our grand opening.",
+      "id": "meats",
+      "title": "Meats",
       "items": [
-        {"id": "brisket", "name": "36hr Smoked Brisket", "price": 28, "basePriceCents": 2800, "currency": "USD", "desc": "Thick cut, espresso & pepper bark, rendered perfection."},
-        {"id": "pulled_pork", "name": "Pulled Heritage Pork", "price": 19, "basePriceCents": 1900, "currency": "USD", "desc": "Applewood notes, subtle vinegar finish, house pickles."},
-        {"id": "ribs", "name": "Fire Glazed Ribs", "price": 24, "basePriceCents": 2400, "currency": "USD", "desc": "Sticky ember glaze, late-stage chili caramel lacquer."},
-        {"id": "cornbread", "name": "Charred Jalapeño Cornbread", "price": 8, "basePriceCents": 800, "currency": "USD", "desc": "Smoked honey butter & ember salt."},
-        {"id": "carrots", "name": "Coal-Roasted Carrots", "price": 11, "basePriceCents": 1100, "currency": "USD", "desc": "Tahini ash, herb crumble, citrus smoke."},
-        {"id": "pecan_cheesecake", "name": "Smoked Pecan Cheesecake", "price": 10, "basePriceCents": 1000, "currency": "USD", "desc": "Brown butter crust, burnt sugar drizzle."}
+        {"id": "sausage_sandwich", "name": "Sausage Sandwich", "price": 5, "basePriceCents": 500, "currency": "USD", "desc": "Smoked sausage on bun."},
+        {"id": "sausage_plate", "name": "Sausage Plate (Includes 2 sides)", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": "Smoked sausage with two sides."},
+        {"id": "chicken_sandwich", "name": "Chicken Sandwich", "price": 7, "basePriceCents": 700, "currency": "USD", "desc": "Pulled or sliced smoked chicken."},
+        {"id": "chicken_plate", "name": "Chicken Plate (Includes 2 sides)", "price": 14, "basePriceCents": 1400, "currency": "USD", "desc": "Smoked chicken with two sides."},
+        {"id": "pork_chop_sandwich", "name": "Pork Chop Sandwich", "price": 10, "basePriceCents": 1000, "currency": "USD", "desc": "Grilled/Smoked pork chop on bun."},
+        {"id": "pork_chop_plate", "name": "Pork Chop Plate (Includes 2 sides)", "price": 17, "basePriceCents": 1700, "currency": "USD", "desc": "Pork chop with two sides."}
       ]
     },
     {
-      "id": "seafood",
-      "title": "Seafood Favorites",
+      "id": "ribs",
+      "title": "Ribs",
       "items": [
-        {"id": "fish_fries", "name": "Fish & Fries", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": "Crisp seasoned fillets, house cut fries, citrus remoulade."},
-        {"id": "shrimp_fries", "name": "Shrimp & Fries", "price": 14, "basePriceCents": 1400, "currency": "USD", "desc": "Smoked-kissed shrimp, golden fries, ember aioli."},
-        {"id": "fish_shrimp_combo", "name": "Fish & Shrimp Combo", "price": 16, "basePriceCents": 1600, "currency": "USD", "desc": "Best of both with dual sauces."},
-        {"id": "fish_grits", "name": "Fish & Grits", "price": null, "basePriceCents": null, "currency": "USD", "desc": "Stone-ground cheddar grits, seared fillet, smoked tomato butter."},
-        {"id": "shrimp_grits", "name": "Shrimp & Grits", "price": null, "basePriceCents": null, "currency": "USD", "desc": "Low country style, charred scallion, ember broth."},
-        {"id": "shrimp_pasta", "name": "Shrimp Pasta", "price": null, "basePriceCents": null, "currency": "USD", "desc": "Garlic herb cream, charred lemon, fresh herbs."}
+        {"id": "rib_sandwich", "name": "Rib Sandwich / Rib Tip Sandwich", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": "Rib or rib tip sandwich."},
+        {"id": "rib_plate", "name": "Rib Plate / Rib Tip Plate (Includes 2 sides)", "price": 19, "basePriceCents": 1900, "currency": "USD", "desc": "Ribs or rib tips with two sides."},
+        {"id": "half_slab", "name": "Half Slab of Ribs", "price": 28, "basePriceCents": 2800, "currency": "USD", "desc": "Half slab smoked ribs."},
+        {"id": "full_slab", "name": "Full Slab of Ribs", "price": 40, "basePriceCents": 4000, "currency": "USD", "desc": "Full slab smoked ribs."}
+      ]
+    },
+    {
+      "id": "sides",
+      "title": "Sides",
+      "items": [
+        {"id": "baked_beans", "name": "Baked Beans", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Slow cooked beans."},
+        {"id": "green_beans", "name": "Green Beans", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Seasoned green beans."},
+        {"id": "corn", "name": "Corn", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Butter corn."},
+        {"id": "mac_cheese", "name": "Mac & Cheese", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Cheesy mac."},
+        {"id": "potato_salad", "name": "Potato Salad", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "House potato salad."}
+      ]
+    },
+    {
+      "id": "drinks",
+      "title": "Drinks",
+      "items": [
+        {"id": "pepsi", "name": "Pepsi", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Pepsi"},
+        {"id": "coke_sprite", "name": "Coke, Sprite", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Coke or Sprite"},
+        {"id": "bottled_water", "name": "Bottled Water", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Water"}
       ]
     }
   ]
