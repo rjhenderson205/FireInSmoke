@@ -41,6 +41,18 @@
         {"id": "coke_sprite", "name": "Coke, Sprite", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Coke or Sprite"},
         {"id": "bottled_water", "name": "Bottled Water", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Water"}
       ]
+    },
+    {
+      "id": "seafood",
+      "title": "Seafood",
+      "items": [
+        {"id": "fish_fries", "name": "Fish and Fries", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": ""},
+        {"id": "shrimp_fries", "name": "Shrimp and Fries", "price": 14, "basePriceCents": 1400, "currency": "USD", "desc": ""},
+        {"id": "fish_shrimp_combo", "name": "Fish/Shrimp Combo", "price": 16, "basePriceCents": 1600, "currency": "USD", "desc": ""},
+        {"id": "fish_grits", "name": "Fish and Grits (TBD)", "price": null, "basePriceCents": null, "currency": "USD", "desc": ""},
+        {"id": "shrimp_grits", "name": "Shrimp and Grits (TBD)", "price": null, "basePriceCents": null, "currency": "USD", "desc": ""},
+        {"id": "shrimp_pasta", "name": "Shrimp Pasta (TBD)", "price": null, "basePriceCents": null, "currency": "USD", "desc": ""}
+      ]
     }
   ]
 }
