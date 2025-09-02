@@ -63,6 +63,25 @@ Static hosting (GitHub Pages / Netlify / Vercel). Steps & cache busting tips in 
 ## 🛠 Development
 No build step. Open `index.html` via local server (for service worker) e.g. VS Code Live Server or simple `python -m http.server`.
 
+### Square Credentials (Where To Put Them)
+1. Copy `server/.env.example` to `server/.env` (file is ignored by Git via the newly added root `.gitignore`).
+2. Fill:
+	- `SQUARE_ACCESS_TOKEN` (start with Sandbox token while testing)
+	- `SQUARE_LOCATION_ID`
+	- Leave `SQUARE_API_BASE` as sandbox until switching to production.
+3. (Optional) Adjust `CORS_ALLOW_ORIGINS` to include your deployed front-end domain.
+4. Restart the Node server (`npm run dev` inside `server/`).
+5. Hit `http://localhost:8787/api/status` — should show `paymentsEnabled: true` when creds are valid.
+6. Populate `assets/data/square-map.json` mapping every menu item `id` to the Square catalog variation ID (any `null` will block that item during checkout with `UNMAPPED_ITEM`).
+
+Never commit `server/.env` or real tokens to version control. In production hosting (Render, Railway, Fly, Vercel, etc.) set these as environment variables in the provider’s dashboard.
+
+### Checkout Review Overlay UX
+The cart "Checkout (Square)" button now opens a branded modal summarizing line items, tax, tip, and total. Clicking "Secure Payment" triggers `/api/create-checkout` and shows an inline loading state while generating the hosted Square payment link. This improves perceived trust versus an immediate raw redirect.
+
+If credentials are missing, the frontend disables checkout ("Online Ordering Coming Soon").
+
+
 ### Hybrid Square Checkout (Hardened)
 Backend in `server/` exposes `POST /api/create-checkout` to convert the local cart into a secure Square payment link.
 

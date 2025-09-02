@@ -419,10 +419,30 @@
   setTimeout(()=>{ window.location.href = FALLBACK_SQUARE_URL; }, 900);
     }
   }
+  // Review overlay integration
+  const reviewEl = document.getElementById('checkoutReview');
+  const crLines = reviewEl?.querySelector('.cr-lines');
+  const crSubtotal = reviewEl?.querySelector('[data-cr-subtotal]');
+  const crTax = reviewEl?.querySelector('[data-cr-tax]');
+  const crTip = reviewEl?.querySelector('[data-cr-tip]');
+  const crTotal = reviewEl?.querySelector('[data-cr-total]');
+  const crClose = reviewEl?.querySelector('.cr-close');
+  const crBack = reviewEl?.querySelector('.cr-back');
+  const crPay = reviewEl?.querySelector('.cr-pay');
+  const crBackdrop = reviewEl?.querySelector('.cr-backdrop');
+  function openReview(){ if(!checkoutAvailable) return; if(!cart.length) return; buildReview(); reviewEl.classList.add('open'); reviewEl.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; crPay.focus(); }
+  function closeReview(){ reviewEl.classList.remove('open','loading'); reviewEl.setAttribute('aria-hidden','true'); document.body.style.overflow=''; crPay?.removeAttribute('data-busy'); }
+  function buildReview(){ if(!crLines) return; crLines.innerHTML=''; cart.forEach(l => { const li=document.createElement('li'); li.innerHTML = `<span class="name">${escapeHtml(l.name)} <span class="qty">×${l.qty}</span></span><span class="price">$${(l.priceCents*l.qty/100).toFixed(2)}</span>`; crLines.appendChild(li); }); const {subtotal, tax, tip, total} = calc(); if(crSubtotal) crSubtotal.textContent = '$'+(subtotal/100).toFixed(2); if(crTax) crTax.textContent = '$'+(tax/100).toFixed(2); if(crTip) crTip.textContent = '$'+(tip/100).toFixed(2); if(crTotal) crTotal.textContent = '$'+(total/100).toFixed(2); }
+  function startPay(){ if(crPay) crPay.setAttribute('data-busy','true'); reviewEl.classList.add('loading'); hybridCheckout(); }
+  crClose?.addEventListener('click', closeReview);
+  crBack?.addEventListener('click', closeReview);
+  crBackdrop?.addEventListener('click', closeReview);
+  crPay?.addEventListener('click', e => { e.preventDefault(); if(!crPay.getAttribute('data-busy')) startPay(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape' && reviewEl?.classList.contains('open')) closeReview(); });
   if(checkoutBtn){
     checkoutBtn.addEventListener('click', e => {
       if(!checkoutAvailable){ e.preventDefault(); return; }
-      if(HYBRID){ e.preventDefault(); e.stopPropagation(); hybridCheckout(); }
+      if(HYBRID){ e.preventDefault(); e.stopPropagation(); openReview(); }
     });
   }
   function initSquarePlaceholder(){ const status = panel.querySelector('#payment-status'); if(status) status.textContent='Square payment form will mount here (backend required).'; }

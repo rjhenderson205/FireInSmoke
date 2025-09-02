@@ -78,6 +78,8 @@ p { line-height: 1.6; margin: 0 0 1em; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 72px; }
 .branding { font-weight: 600; font-size: 1.05rem; display:flex; align-items:center; gap:.65rem; letter-spacing:1px; }
 .logo-mark { font-size:1.4rem; filter: drop-shadow(0 0 4px rgba(217,93,26,.6)); }
+.logo-mark { text-decoration:none; color:inherit; line-height:1; display:inline-flex; align-items:center; justify-content:center; }
+.logo-mark:focus-visible { outline:2px solid var(--color-accent); outline-offset:4px; border-radius:6px; }
 .brand-text { text-transform:uppercase; }
 .brand-text .accent { font-weight:400; font-size:.85em; color: var(--color-accent-alt); margin-left:.3ch; }
 
@@ -282,6 +284,32 @@ p { line-height: 1.6; margin: 0 0 1em; }
 .mobile-cart-btn .mcb-count { background: var(--grad-ember); color:#111; min-width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; font-weight:600; border-radius:50%; font-size:.75rem; }
 .mobile-cart-btn .mcb-total { font-weight:600; color: var(--color-accent-alt); font-size:.8rem; }
 @media (min-width:1100px){ .mobile-cart-bar { display:none; } }
+
+/* Checkout Review Overlay */
+.checkout-review { position:fixed; inset:0; z-index:650; display:none; }
+.checkout-review.open { display:block; }
+.checkout-review .cr-backdrop { position:absolute; inset:0; background:rgba(0,0,0,.68); backdrop-filter: blur(6px) saturate(140%); -webkit-backdrop-filter: blur(6px) saturate(140%); }
+.checkout-review .cr-inner { position:relative; width:min(640px, 100% - 2.5rem); max-height: min(85vh, 900px); margin: clamp(2rem, 6vh, 4rem) auto; background:#141414; border:1px solid #262626; border-radius: var(--radius-md); padding:2.2rem 1.9rem 2.4rem; display:flex; flex-direction:column; gap:1.2rem; box-shadow:0 20px 60px -12px rgba(0,0,0,.7); overflow:auto; }
+.cr-title { margin:0 0 .25rem; font-size: clamp(1.3rem, 2.4vw, 1.8rem); }
+.cr-intro { margin:0 0 .75rem; color: var(--color-text-dim); }
+.cr-close { position:absolute; top:.85rem; right:.85rem; background:#1e1e1e; border:1px solid #2d2d2d; color: var(--color-text-dim); width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.2rem; }
+.cr-lines { list-style:none; padding:0; margin:0; display:grid; gap:.75rem; }
+.cr-lines li { display:flex; justify-content:space-between; align-items:flex-start; gap:.75rem; background:#181818; border:1px solid #232323; padding:.65rem .75rem .6rem; border-radius: var(--radius-sm); font-size:.75rem; }
+.cr-lines li .qty { font-weight:600; color: var(--color-accent-alt); }
+.cr-lines li .name { font-weight:500; letter-spacing:.4px; }
+.cr-lines li .price { color: var(--color-text-dim); font-variant-numeric: tabular-nums; }
+.cr-totals { display:grid; gap:.35rem; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; }
+.cr-totals > div { display:flex; justify-content:space-between; }
+.cr-totals .cr-grand { margin-top:.4rem; padding-top:.5rem; border-top:1px solid #262626; font-size:.8rem; font-weight:600; }
+.cr-actions { display:flex; gap:.75rem; flex-wrap:wrap; }
+.cr-pay[data-busy="true"] { position:relative; opacity:.75; pointer-events:none; }
+.cr-pay[data-busy="true"]::after { content:attr(data-loading-text); position:absolute; inset:0; display:grid; place-items:center; background:rgba(0,0,0,.55); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color: var(--color-text-dim); border-radius: var(--radius-pill); }
+.cr-loading { position:absolute; inset:0; display:none; align-items:center; justify-content:center; flex-direction:column; gap:1rem; background:rgba(0,0,0,.72); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border-radius: var(--radius-md); }
+.checkout-review.loading .cr-loading { display:flex; }
+.spinner { width:40px; height:40px; border:4px solid #2a2a2a; border-top-color: var(--color-accent); border-radius:50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.tiny { font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; }
+
 
 /* Tighten section padding on very small screens */
 @media (max-width:600px){

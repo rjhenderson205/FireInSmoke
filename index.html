@@ -101,7 +101,7 @@
 	<header class="site-header" id="top">
 		<div class="container header-inner">
 			<div class="branding">
-				<span class="logo-mark" aria-hidden="true">🔥</span>
+				<a href="#top" class="logo-mark" aria-label="Back to top" title="Back to top">🔥</a>
 				<span class="brand-text">Fire In Smoke<span class="accent"> BBQ House</span></span>
 			</div>
 			<nav class="primary-nav" aria-label="Main navigation">
@@ -495,6 +495,31 @@
 			<span class="mcb-label">View Cart</span>
 			<span class="mcb-total" data-mcb-total>$0.00</span>
 		</button>
+	</div>
+	<!-- Checkout Review Overlay -->
+	<div class="checkout-review" id="checkoutReview" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
+		<div class="cr-inner">
+			<button class="cr-close" aria-label="Close review window">×</button>
+			<h2 id="reviewTitle" class="cr-title">Review &amp; Secure Pay</h2>
+			<p class="cr-intro small">Confirm your order items before we connect you to our encrypted Square payment page.</p>
+			<ul class="cr-lines" aria-live="polite"></ul>
+			<div class="cr-totals small">
+				<div><span>Subtotal</span><span data-cr-subtotal>$0.00</span></div>
+				<div><span>Estimated Tax</span><span data-cr-tax>$0.00</span></div>
+				<div><span>Tip</span><span data-cr-tip>$0.00</span></div>
+				<div class="cr-grand"><span>Total</span><span data-cr-total>$0.00</span></div>
+			</div>
+			<div class="cr-actions">
+				<button class="btn outline cr-back">Modify Cart</button>
+				<button class="btn primary cr-pay" data-loading-text="Generating secure link...">Secure Payment <span class="lock" aria-hidden="true">🔒</span></button>
+			</div>
+			<p class="cr-note tiny dim">You will be redirected to Square. No card data is handled on this site.</p>
+			<div class="cr-loading" aria-hidden="true">
+				<div class="spinner" aria-hidden="true"></div>
+				<p class="small">Creating secure checkout...</p>
+			</div>
+		</div>
+		<div class="cr-backdrop" aria-hidden="true"></div>
 	</div>
 	<script src="assets/js/main.js" defer></script>
 	<script>if(location.protocol.startsWith('http')){ if('serviceWorker' in navigator){ window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(console.warn)); }} else { console.info('Service worker skipped on non-http(s) protocol'); }</script>
