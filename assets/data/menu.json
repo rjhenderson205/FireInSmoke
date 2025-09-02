@@ -4,54 +4,54 @@
       "id": "meats",
       "title": "Meats",
       "items": [
-        {"id": "sausage_sandwich", "name": "Sausage Sandwich", "price": 5, "basePriceCents": 500, "currency": "USD", "desc": "Smoked sausage on bun."},
-        {"id": "sausage_plate", "name": "Sausage Plate (Includes 2 sides)", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": "Smoked sausage with two sides."},
-        {"id": "chicken_sandwich", "name": "Chicken Sandwich", "price": 7, "basePriceCents": 700, "currency": "USD", "desc": "Pulled or sliced smoked chicken."},
-        {"id": "chicken_plate", "name": "Chicken Plate (Includes 2 sides)", "price": 14, "basePriceCents": 1400, "currency": "USD", "desc": "Smoked chicken with two sides."},
-        {"id": "pork_chop_sandwich", "name": "Pork Chop Sandwich", "price": 10, "basePriceCents": 1000, "currency": "USD", "desc": "Grilled/Smoked pork chop on bun."},
-        {"id": "pork_chop_plate", "name": "Pork Chop Plate (Includes 2 sides)", "price": 17, "basePriceCents": 1700, "currency": "USD", "desc": "Pork chop with two sides."}
+  {"id": "sausage_sandwich", "name": "Sausage Sandwich", "price": 5, "basePriceCents": 500, "currency": "USD"},
+  {"id": "sausage_plate", "name": "Sausage Plate (Includes 2 sides)", "price": 12, "basePriceCents": 1200, "currency": "USD"},
+  {"id": "chicken_sandwich", "name": "Chicken Sandwich", "price": 7, "basePriceCents": 700, "currency": "USD"},
+  {"id": "chicken_plate", "name": "Chicken Plate (Includes 2 sides)", "price": 14, "basePriceCents": 1400, "currency": "USD"},
+  {"id": "pork_chop_sandwich", "name": "Pork Chop Sandwich", "price": 10, "basePriceCents": 1000, "currency": "USD"},
+  {"id": "pork_chop_plate", "name": "Pork Chop Plate (Includes 2 sides)", "price": 17, "basePriceCents": 1700, "currency": "USD"}
       ]
     },
     {
       "id": "ribs",
       "title": "Ribs",
       "items": [
-        {"id": "rib_sandwich", "name": "Rib Sandwich / Rib Tip Sandwich", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": "Rib or rib tip sandwich."},
-        {"id": "rib_plate", "name": "Rib Plate / Rib Tip Plate (Includes 2 sides)", "price": 19, "basePriceCents": 1900, "currency": "USD", "desc": "Ribs or rib tips with two sides."},
-        {"id": "half_slab", "name": "Half Slab of Ribs", "price": 28, "basePriceCents": 2800, "currency": "USD", "desc": "Half slab smoked ribs."},
-        {"id": "full_slab", "name": "Full Slab of Ribs", "price": 40, "basePriceCents": 4000, "currency": "USD", "desc": "Full slab smoked ribs."}
+  {"id": "rib_sandwich", "name": "Rib Sandwich / Rib Tip Sandwich", "price": 12, "basePriceCents": 1200, "currency": "USD"},
+  {"id": "rib_plate", "name": "Rib Plate / Rib Tip Plate (Includes 2 sides)", "price": 19, "basePriceCents": 1900, "currency": "USD"},
+  {"id": "half_slab", "name": "Half Slab of Ribs", "price": 28, "basePriceCents": 2800, "currency": "USD"},
+  {"id": "full_slab", "name": "Full Slab of Ribs", "price": 40, "basePriceCents": 4000, "currency": "USD"}
       ]
     },
     {
       "id": "sides",
       "title": "Sides",
       "items": [
-        {"id": "baked_beans", "name": "Baked Beans", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Slow cooked beans."},
-        {"id": "green_beans", "name": "Green Beans", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Seasoned green beans."},
-        {"id": "corn", "name": "Corn", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Butter corn."},
-        {"id": "mac_cheese", "name": "Mac & Cheese", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "Cheesy mac."},
-        {"id": "potato_salad", "name": "Potato Salad", "price": 4, "basePriceCents": 400, "currency": "USD", "desc": "House potato salad."}
+  {"id": "baked_beans", "name": "Baked Beans", "price": 4, "basePriceCents": 400, "currency": "USD"},
+  {"id": "green_beans", "name": "Green Beans", "price": 4, "basePriceCents": 400, "currency": "USD"},
+  {"id": "corn", "name": "Corn", "price": 4, "basePriceCents": 400, "currency": "USD"},
+  {"id": "mac_cheese", "name": "Mac & Cheese", "price": 4, "basePriceCents": 400, "currency": "USD"},
+  {"id": "potato_salad", "name": "Potato Salad", "price": 4, "basePriceCents": 400, "currency": "USD"}
       ]
     },
     {
       "id": "drinks",
       "title": "Drinks",
       "items": [
-        {"id": "pepsi", "name": "Pepsi", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Pepsi"},
-        {"id": "coke_sprite", "name": "Coke, Sprite", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Coke or Sprite"},
-        {"id": "bottled_water", "name": "Bottled Water", "price": 1, "basePriceCents": 100, "currency": "USD", "desc": "Water"}
+  {"id": "pepsi", "name": "Pepsi", "price": 1, "basePriceCents": 100, "currency": "USD"},
+  {"id": "coke_sprite", "name": "Coke, Sprite", "price": 1, "basePriceCents": 100, "currency": "USD"},
+  {"id": "bottled_water", "name": "Bottled Water", "price": 1, "basePriceCents": 100, "currency": "USD"}
       ]
     },
     {
       "id": "seafood",
       "title": "Seafood",
       "items": [
-        {"id": "fish_fries", "name": "Fish and Fries", "price": 12, "basePriceCents": 1200, "currency": "USD", "desc": ""},
-        {"id": "shrimp_fries", "name": "Shrimp and Fries", "price": 14, "basePriceCents": 1400, "currency": "USD", "desc": ""},
-        {"id": "fish_shrimp_combo", "name": "Fish/Shrimp Combo", "price": 16, "basePriceCents": 1600, "currency": "USD", "desc": ""},
-        {"id": "fish_grits", "name": "Fish and Grits (TBD)", "price": null, "basePriceCents": null, "currency": "USD", "desc": ""},
-        {"id": "shrimp_grits", "name": "Shrimp and Grits (TBD)", "price": null, "basePriceCents": null, "currency": "USD", "desc": ""},
-        {"id": "shrimp_pasta", "name": "Shrimp Pasta (TBD)", "price": null, "basePriceCents": null, "currency": "USD", "desc": ""}
+  {"id": "fish_fries", "name": "Fish and Fries", "price": 12, "basePriceCents": 1200, "currency": "USD"},
+  {"id": "shrimp_fries", "name": "Shrimp and Fries", "price": 14, "basePriceCents": 1400, "currency": "USD"},
+  {"id": "fish_shrimp_combo", "name": "Fish/Shrimp Combo", "price": 16, "basePriceCents": 1600, "currency": "USD"},
+  {"id": "fish_grits", "name": "Fish and Grits (TBD)", "price": null, "basePriceCents": null, "currency": "USD"},
+  {"id": "shrimp_grits", "name": "Shrimp and Grits (TBD)", "price": null, "basePriceCents": null, "currency": "USD"},
+  {"id": "shrimp_pasta", "name": "Shrimp Pasta (TBD)", "price": null, "basePriceCents": null, "currency": "USD"}
       ]
     }
   ]

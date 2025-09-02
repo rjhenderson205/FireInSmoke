@@ -8,7 +8,6 @@ Premium dark, ember‑themed barbecue & seafood site: performant, accessible, PW
 - Clickable menu thumbnails (single‑image lightbox mode)
 - Gallery supporting images & autoplay looped videos (keyboard navigable)
 - Cart system (localStorage persistence, tax, tip, toasts, focus states)
-<!-- Reservation form removed (previous honeypot/validation logic retired) -->
 - Delivery partners (auto‑enable when status becomes `live`)
 - Structured data (JSON-LD Restaurant + menu sections)
 - PWA (service worker + offline fallback page + manifest)

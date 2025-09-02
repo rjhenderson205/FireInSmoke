@@ -28,7 +28,6 @@
   document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
-  // Reservation form removed (legacy code pruned)
 })();
 
 // Square storefront quick integration (Phase 1)
@@ -192,7 +191,8 @@
       sausage_sandwich:'Plateimg.webp', sausage_plate:'Plateimg.webp', chicken_sandwich:'Chicken.webp', chicken_plate:'Chicken.webp', pork_chop_sandwich:'Plateimg.webp', pork_chop_plate:'Plateimg.webp', rib_sandwich:'Ribsimg2.webp', rib_plate:'Ribsimg2.webp', half_slab:'Ribsimg.webp', full_slab:'Ribsimg.webp', baked_beans:'Plateimg.webp', green_beans:'Plateimg.webp', corn:'Plateimg.webp', mac_cheese:'Plateimg.webp', potato_salad:'Plateimg.webp', fish_fries:'Plateimggg.webp', shrimp_fries:'Plateimg.webp', fish_shrimp_combo:'Ribsimg.webp', fish_grits:'Plateimggg.webp', shrimp_grits:'Plateimg.webp', shrimp_pasta:'Plateimg.webp'
     };
     const imgFile = thumbMap[item.id] || 'Plateimg.webp';
-    const imgTag = `<div class="menu-thumb"><img src="assets/images/${imgFile}" alt="${escapeAttr(item.name)}" loading="lazy"></div>`;
+  // Responsive attributes: fixed intrinsic dimensions to reduce CLS; sizes assumes card max width ~340px on large screens
+  const imgTag = `<div class="menu-thumb"><img src="assets/images/${imgFile}" alt="${escapeAttr(item.name)}" loading="lazy" decoding="async" width="144" height="144" sizes="(max-width:560px) 56px, 72px"></div>`;
     const canAdd = item.basePriceCents && item.price != null;
     div.innerHTML = imgTag + `<div class="menu-info"><h3>${escapeHtml(item.name)} <span class="price">${price}</span></h3></div>` +
       (canAdd ? `<button class="add-cart" data-id="${escapeAttr(item.id)}" data-name="${escapeAttr(item.name)}" data-price="${item.basePriceCents}" aria-label="Add ${escapeAttr(item.name)} to cart">Add</button>` : `<button class="add-cart disabled" aria-disabled="true" title="Temporarily unavailable">Unavailable</button>`);
@@ -446,4 +446,23 @@
     const limit = Math.min(60, y*0.15);
     heroContent.style.transform = `translateY(${limit}px)`;
   }, { passive:true });
+})();
+
+// Lightweight analytics stub (no network) – replace with real endpoint later
+(function(){
+  const queue = [];
+  function record(ev, data={}){
+    queue.push({ev, data, t: Date.now()});
+    if(queue.length > 25) queue.shift();
+    // Hook: sendBeacon('/analytics', JSON.stringify(payload)) when backend ready
+  }
+  window.__fisAnalytics = { record, dump: () => queue.slice() };
+  // Basic events
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a,button');
+    if(!a) return;
+    if(a.matches('[data-square-order]')) record('click_order_cta',{id:a.getAttribute('href')});
+    else if(a.classList.contains('add-cart')) record('add_cart',{id:a.dataset.id});
+  });
+  window.addEventListener('menuRendered', () => record('menu_rendered'));
 })();

@@ -1,0 +1,5 @@
+Contact: mailto:Fire_n_smoke_bbq@outlook.com
+Expires: 2026-09-01T00:00:00Z
+Preferred-Languages: en
+acknowledgments: https://your-production-domain/security-notes
+Policy: https://your-production-domain/SECURITY.md

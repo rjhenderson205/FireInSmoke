@@ -1,0 +1,13 @@
+/* TEAM */
+Developer: Fire In Smoke Web Team
+Contact: Fire_n_smoke_bbq@outlook.com
+Location: Atlanta, GA, USA
+
+/* SITE */
+Standards: HTML5, CSS3, ES2022, WCAG 2.1 AA (target)
+Tools: Vanilla JS, Express, Service Worker
+Performance: Lazy load media, skeleton UI, WebP
+Security: Helmet, rate limiting, CSP (baseline), server-side price validation
+
+/* THANKS */
+OpenStreetMap contributors for map data.

@@ -17,7 +17,6 @@ index.html
  ├─ gallery (figures with images/videos, lightbox enabled)
  ├─ location (address, map embed)
  ├─ contact & social
- ├─ (reservations form removed)
  ├─ order placeholder
  └─ footer (nav, social, legal)
 ```

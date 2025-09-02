@@ -26,7 +26,6 @@ This project aims for an inclusive, keyboard and screen-reader friendly experien
 - Toast region uses aria-live for ephemeral status (non-blocking)
 
 ## Forms
-<!-- Reservation form removed: previous required-field validation no longer applicable -->
 - Honeypot field (`company`) traps simple bots; off-screen & `aria-hidden`
 
 ## Media
