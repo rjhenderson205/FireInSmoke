@@ -1,0 +1,6 @@
+# robots.txt for Fire In Smoke
+User-agent: *
+Allow: /
+
+# Point to sitemap (update domain when live)
+Sitemap: https://your-production-domain/sitemap.xml

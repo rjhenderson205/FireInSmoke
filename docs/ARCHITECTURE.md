@@ -17,7 +17,7 @@ index.html
  ├─ gallery (figures with images/videos, lightbox enabled)
  ├─ location (address, map embed)
  ├─ contact & social
- ├─ reservations form
+ ├─ (reservations form removed)
  ├─ order placeholder
  └─ footer (nav, social, legal)
 ```
@@ -31,7 +31,7 @@ index.html
    - Adds skeleton shimmer placeholders
    - Enhances with thumbnails, Add buttons
 4. Partners loader (fetch `partners.json`)
-5. Reservation form validation & honeypot
+5. (Removed) Reservation form (previously validation & honeypot)
 6. Gallery & Lightbox
    - Supports images & videos
    - Keyboard navigation, focus trap
@@ -85,15 +85,19 @@ Partners JSON structure:
 - Network fetch for JSON data with graceful fallback to static markup
 
 ## Future Integration Points
-- Square checkout (placeholder) -> real payment form mount
+- Square checkout (hybrid payment link – authoritative server pricing, catalog ID mapping)
 - Delivery partner deep links
 - Analytics events (CTA, add-to-cart, conversions)
 - srcset / responsive images & streaming video optimization
 
 ## Security Considerations
 - No user auth (static site)
-- Form is non-submitting placeholder (avoid leaking PII)
+- Removed reservation form (no PII collection)
 - External links use `rel="noopener"`
+- Hybrid checkout server: validates item IDs, rejects unmapped or TBD priced items, ignores client prices, CORS allowlist via env.
+- Recommend: deploy behind HTTPS only; rotate Square access tokens if leaked; add rate limiting.
+ - Status endpoint (`/api/status`) enables frontend to disable checkout gracefully.
+ - Helmet sets baseline security headers; future CSP to be defined when asset hosts fixed.
 
 ## Deployment
 Static hosting (GitHub Pages, Netlify, Vercel). Root scope required for service worker path.

@@ -28,14 +28,7 @@
   document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
-  const form = document.querySelector('.res-form');
-  form?.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type=submit]');
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    setTimeout(() => { btn.textContent = 'Request Submitted'; form.reset(); setTimeout(()=>{ btn.disabled=false; btn.textContent='Request Reservation'; }, 2500); }, 1000);
-  });
+  // Reservation form removed (legacy code pruned)
 })();
 
 // Square storefront quick integration (Phase 1)
@@ -158,7 +151,7 @@
             const h3 = itemEl.querySelector('h3');
             if(h3){
               const nameId = h3.textContent.toLowerCase().split('$')[0].trim().replace(/[^a-z0-9]+/g,'_');
-              const thumbMap = { pulled_heritage_pork:'Plateimg.webp', fire_glazed_ribs:'Ribsimg2.webp', charred_jalapeño_cornbread:'Plateimggg.webp', coal_roasted_carrots:'Chicken.webp', smoked_pecan_cheesecake:'Plateimg.webp' };
+              const thumbMap = { sausage_sandwich:'Plateimg.webp', sausage_plate:'Plateimg.webp', chicken_sandwich:'Chicken.webp', chicken_plate:'Chicken.webp', pork_chop_sandwich:'Plateimg.webp', pork_chop_plate:'Plateimg.webp', rib_sandwich:'Ribsimg2.webp', rib_plate:'Ribsimg2.webp', half_slab:'Ribsimg.webp', full_slab:'Ribsimg.webp', baked_beans:'Plateimg.webp', green_beans:'Plateimg.webp', corn:'Plateimg.webp', mac_cheese:'Plateimg.webp', potato_salad:'Plateimg.webp', fish_fries:'Plateimggg.webp', shrimp_fries:'Plateimg.webp', fish_shrimp_combo:'Ribsimg.webp', fish_grits:'Plateimggg.webp', shrimp_grits:'Plateimg.webp', shrimp_pasta:'Plateimg.webp' };
               const file = thumbMap[nameId] || 'Plateimg.webp';
               const img = document.createElement('div');
               img.className='menu-thumb';
@@ -193,22 +186,16 @@
   function buildMenuItem(item){
     const div = document.createElement('div');
     div.className = 'menu-item fade-in';
-    const price = item.price == null ? '$—' : '$' + item.price;
+  const price = item.price == null ? 'TBD' : '$' + item.price;
     // Simple thumbnail mapping (extend later). Fallback to ribs image if specific not mapped.
     const thumbMap = {
-      pulled_pork: 'Plateimg.webp',
-      ribs: 'Ribsimg2.webp',
-      cornbread: 'Plateimggg.webp',
-      carrots: 'Chicken.webp',
-      pecan_cheesecake: 'Plateimg.webp',
-      fish_fries: 'Plateimggg.webp',
-      shrimp_fries: 'Plateimg.webp',
-      fish_shrimp_combo: 'Ribsimg.webp'
+      sausage_sandwich:'Plateimg.webp', sausage_plate:'Plateimg.webp', chicken_sandwich:'Chicken.webp', chicken_plate:'Chicken.webp', pork_chop_sandwich:'Plateimg.webp', pork_chop_plate:'Plateimg.webp', rib_sandwich:'Ribsimg2.webp', rib_plate:'Ribsimg2.webp', half_slab:'Ribsimg.webp', full_slab:'Ribsimg.webp', baked_beans:'Plateimg.webp', green_beans:'Plateimg.webp', corn:'Plateimg.webp', mac_cheese:'Plateimg.webp', potato_salad:'Plateimg.webp', fish_fries:'Plateimggg.webp', shrimp_fries:'Plateimg.webp', fish_shrimp_combo:'Ribsimg.webp', fish_grits:'Plateimggg.webp', shrimp_grits:'Plateimg.webp', shrimp_pasta:'Plateimg.webp'
     };
     const imgFile = thumbMap[item.id] || 'Plateimg.webp';
     const imgTag = `<div class="menu-thumb"><img src="assets/images/${imgFile}" alt="${escapeAttr(item.name)}" loading="lazy"></div>`;
-    div.innerHTML = imgTag + `<div class="menu-info"><h3>${escapeHtml(item.name)} <span class="price">${price}</span></h3><p>${escapeHtml(item.desc)}</p></div>` +
-      (item.basePriceCents ? `<button class="add-cart" data-id="${escapeAttr(item.id)}" data-name="${escapeAttr(item.name)}" data-price="${item.basePriceCents}" aria-label="Add ${escapeAttr(item.name)} to cart">Add</button>` : `<button class="add-cart disabled" aria-disabled="true" title="Temporarily unavailable">Unavailable</button>`);
+    const canAdd = item.basePriceCents && item.price != null;
+    div.innerHTML = imgTag + `<div class="menu-info"><h3>${escapeHtml(item.name)} <span class="price">${price}</span></h3></div>` +
+      (canAdd ? `<button class="add-cart" data-id="${escapeAttr(item.id)}" data-name="${escapeAttr(item.name)}" data-price="${item.basePriceCents}" aria-label="Add ${escapeAttr(item.name)} to cart">Add</button>` : `<button class="add-cart disabled" aria-disabled="true" title="Temporarily unavailable">Unavailable</button>`);
     return div;
   }
   function escapeHtml(str=''){ return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c])); }
@@ -252,42 +239,7 @@
     });
 })();
 
-// Reservation form validation & honeypot
-(function(){
-  const form = document.querySelector('.res-form');
-  if(!form) return;
-  const btn = form.querySelector('button[type=submit]');
-  const live = document.querySelector('.sr-live');
-  const requiredFields = ['name','email','date','time','guests'];
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const hp = form.querySelector('input[name=company]');
-    if(hp && hp.value){ return; }
-    let valid = true;
-    requiredFields.forEach(name => {
-      const field = form.querySelector(`[name="${name}"]`);
-      const container = field?.closest('label');
-      if(field && !field.value){
-        valid=false;
-        container?.classList.add('invalid');
-      }
-    });
-    if(!valid){
-      btn.textContent='Check Required Fields';
-      live && (live.textContent='Form incomplete, please fill required fields.');
-      setTimeout(()=>{ btn.textContent='Request Reservation'; },1800);
-      return;
-    }
-    btn.disabled=true; btn.textContent='Sending...'; live && (live.textContent='Submitting reservation request.');
-    setTimeout(()=>{ btn.textContent='Request Submitted'; live && (live.textContent='Reservation request submitted.'); form.reset(); setTimeout(()=>{ btn.disabled=false; btn.textContent='Request Reservation'; live && (live.textContent='Ready for another reservation.'); },2500); },900);
-  });
-  form.addEventListener('input', e => {
-    const t=e.target;
-    if(t.name && t.closest('label')?.classList.contains('invalid') && t.value){
-      t.closest('label').classList.remove('invalid');
-    }
-  });
-})();
+// Reservation form logic removed (site no longer supports reservations)
 
 // Gallery & single-image lightbox
 (function(){
@@ -436,6 +388,18 @@
   checkoutBtn?.addEventListener('click', () => { checkoutContainer.hidden = false; checkoutBtn.disabled = true; initSquarePlaceholder(); });
   // Hybrid Square checkout integration
   const HYBRID = true; // toggle if you want to revert to static Square site redirect
+  let checkoutAvailable = false;
+  // Ping status endpoint to determine if payments are enabled
+  fetch('/api/status').then(r=> r.json()).then(s => {
+    checkoutAvailable = !!s.paymentsEnabled;
+    if(!checkoutAvailable && checkoutBtn){
+      checkoutBtn.disabled = true;
+      checkoutBtn.textContent = 'Online Ordering Coming Soon';
+      checkoutBtn.classList.add('coming-soon');
+      checkoutBtn.setAttribute('aria-disabled','true');
+      announce('Online ordering not yet available.');
+    }
+  }).catch(()=>{});
   async function hybridCheckout(){
     if(!cart.length){ toast('Cart empty'); return; }
     const payload = { cart: cart.map(l=> ({ id:l.id, name:l.name, qty:l.qty, priceCents:l.priceCents })) };
@@ -457,6 +421,7 @@
   }
   if(checkoutBtn){
     checkoutBtn.addEventListener('click', e => {
+      if(!checkoutAvailable){ e.preventDefault(); return; }
       if(HYBRID){ e.preventDefault(); e.stopPropagation(); hybridCheckout(); }
     });
   }

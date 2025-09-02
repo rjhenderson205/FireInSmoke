@@ -8,7 +8,7 @@ Premium dark, ember‑themed barbecue & seafood site: performant, accessible, PW
 - Clickable menu thumbnails (single‑image lightbox mode)
 - Gallery supporting images & autoplay looped videos (keyboard navigable)
 - Cart system (localStorage persistence, tax, tip, toasts, focus states)
-- Reservation form (honeypot, validation, aria-live updates)
+<!-- Reservation form removed (previous honeypot/validation logic retired) -->
 - Delivery partners (auto‑enable when status becomes `live`)
 - Structured data (JSON-LD Restaurant + menu sections)
 - PWA (service worker + offline fallback page + manifest)
@@ -64,32 +64,65 @@ Static hosting (GitHub Pages / Netlify / Vercel). Steps & cache busting tips in 
 ## 🛠 Development
 No build step. Open `index.html` via local server (for service worker) e.g. VS Code Live Server or simple `python -m http.server`.
 
-### Hybrid Square Checkout (Beta)
-Backend in `server/` exposes `POST /api/create-checkout` to transform the local cart into a Square payment link.
+### Hybrid Square Checkout (Hardened)
+Backend in `server/` exposes `POST /api/create-checkout` to convert the local cart into a secure Square payment link.
 
-Flow:
-1. Frontend cart (localStorage) collects items from `menu.json`.
-2. Checkout button posts `{ cart:[{id,name,qty,priceCents}] }`.
-3. Server maps `id` -> Square Catalog object id via `assets/data/square-map.json`.
-4. Server creates Order & Payment Link (Square) and returns `checkoutUrl`.
-5. Frontend redirects user to Square-hosted payment page.
+Security Hardening Implemented:
+- Ignores client-submitted prices; derives authoritative `basePriceCents` from `assets/data/menu.json` (items with TBD pricing are rejected).
+- Validates quantity bounds (1–50) & item existence.
+- Requires each item to have a mapped Square Catalog Object ID in `assets/data/square-map.json`.
+- Returns dedicated error codes (`UNKNOWN_ITEM`, `UNMAPPED_ITEM`, `PRICE_UNAVAILABLE`, etc.).
+- CORS restricted via `CORS_ALLOW_ORIGINS` allowlist (comma-separated).
+- Optional hot reload of pricing indices guarded by `ENABLE_RELOAD=true` (dev only).
+ - `/api/status` endpoint signals if payments are enabled (frontend shows "Online Ordering Coming Soon" if disabled).
+ - Security headers via Helmet + basic rate limiting (120 requests / 15 min) on `/api/*`.
+
+Current Flow:
+1. Frontend builds cart from menu (no descriptions sent).
+2. Checkout posts `{ cart:[{id, qty}] }` (price fields from client ignored if present).
+3. Server validates items & pricing, aggregates total using internal index.
+4. Server creates a Square Payment Link (Quick Pay) with an itemized note.
+5. Frontend redirects user to the secure Square-hosted payment page.
 
 Setup:
-1. Copy `server/.env.example` to `server/.env` and fill `SQUARE_ACCESS_TOKEN`, `SQUARE_LOCATION_ID` (sandbox first).
-2. Populate real catalog IDs in `assets/data/square-map.json`.
-3. In `server/`: `npm install` then `npm run dev`.
-4. Serve frontend (same origin recommended) or adjust CORS in `server.js`.
+1. Create `server/.env` (see template below) with sandbox credentials first.
+2. Fill real catalog IDs in `assets/data/square-map.json` (replace `null` placeholders).
+3. Install deps & run backend: (inside `server/`) `npm install` then `npm run dev`.
+4. Serve frontend from an allowed origin (configure `CORS_ALLOW_ORIGINS`).
+5. After testing, switch `SQUARE_API_BASE` to production and use a production access token.
 
-Env Vars:
+`.env` example:
+```
+SQUARE_ACCESS_TOKEN=EAAA_SANDBOX_...
+SQUARE_LOCATION_ID=LOCATION_ID
+SQUARE_API_BASE=https://connect.squareupsandbox.com
+CORS_ALLOW_ORIGINS=http://localhost:5173,https://your-production-domain
+ENABLE_RELOAD=false
+```
+
+Environment Variables:
 | Var | Description |
 |-----|-------------|
-| SQUARE_ACCESS_TOKEN | Square access token (keep private) |
+| SQUARE_ACCESS_TOKEN | Square access token (sandbox or prod) |
 | SQUARE_LOCATION_ID  | Square location identifier |
-| SQUARE_API_BASE     | Sandbox or prod base (defaults sandbox) |
+| SQUARE_API_BASE     | API base (sandbox or production) |
+| CORS_ALLOW_ORIGINS  | Comma-separated list of allowed origins |
+| ENABLE_RELOAD       | If `true`, enables `/api/_reload` (dev only) |
 
-Toggle: In `assets/js/main.js` set `const HYBRID = true/false` near checkout logic.
+Front-End Toggle:
+Set `const HYBRID = true/false` in `assets/js/main.js` (if present) to enable / disable showing checkout UI.
 
-Security TODO: Replace client-sent `priceCents` with authoritative lookup from Square Catalog to prevent tampering.
+Next Security Enhancements (Recommended):
+- Fetch live prices & taxes from Square Catalog + Tax APIs to avoid manual duplication.
+- Create Orders with line items before payment link for richer reporting.
+- Webhook listener (payment completion) to enable internal fulfillment dashboard.
+- Rate limiting / basic abuse protection (e.g., express-rate-limit) if public.
+ - Add CSP (Content Security Policy) once domains / CDNs finalized.
+ - Translate backend error codes into friendly customer messages.
+
+### SEO / Crawl Baseline
+- Added `robots.txt`, `sitemap.xml`, and custom `404.html`.
+- Replace `your-production-domain` placeholders post-deploy and consider adding a canonical `<link>`.
 
 ## 🔐 Offline & Caching
 `sw.js` precaches core shell + offline.html fallback. Increment cache version constant when changing critical assets.

@@ -161,8 +161,8 @@ p { line-height: 1.6; margin: 0 0 1em; }
 .fade-in.visible { opacity:1; transform:none; }
 
 /* Utilities */
-.story, .menu-preview, .highlights, .gallery, .location, .reservations, .order-online { position:relative; }
-.story::before, .menu-preview::before, .gallery::before, .location::before, .reservations::before, .order-online::before { content:""; position:absolute; inset:0; pointer-events:none; background: radial-gradient(circle at 85% 10%, rgba(217,93,26,.08), transparent 60%); opacity:.8; }
+.story, .menu-preview, .highlights, .gallery, .location, .order-online { position:relative; }
+.story::before, .menu-preview::before, .gallery::before, .location::before, .order-online::before { content:""; position:absolute; inset:0; pointer-events:none; background: radial-gradient(circle at 85% 10%, rgba(217,93,26,.08), transparent 60%); opacity:.8; }
 
 /* Responsive Navigation */
 @media (max-width: 820px) {

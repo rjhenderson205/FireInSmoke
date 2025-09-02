@@ -1,7 +1,7 @@
 {
   "name": "Fire In Smoke BBQ House",
   "short_name": "FireInSmoke",
-  "description": "Premium wood-fired barbecue & seafood restaurant.",
+  "description": "Premium charcoal-fired barbecue & seafood restaurant.",
   "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",

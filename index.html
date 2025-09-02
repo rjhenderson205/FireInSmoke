@@ -4,9 +4,9 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Fire In Smoke BBQ House | Premium Charcoal-Fired Barbecue</title>
-	<meta name="description" content="Fire In Smoke BBQ House – premium charcoal‑fired barbecue, slow smoked meats, craft sides, and elevated dining experience." />
+	<meta name="description" content="Fire In Smoke BBQ House – premium charcoal‑fired barbecue, slow smoked meats, plates that fill, and fresh sides." />
 	<meta property="og:title" content="Fire In Smoke BBQ House" />
-	<meta property="og:description" content="Premium charcoal‑fired barbecue, slow smoked meats, craft sides, and elevated dining experience." />
+	<meta property="og:description" content="Premium charcoal‑fired barbecue, slow smoked meats, plates that fill, and fresh sides." />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="image0.jpg" />
 	<meta property="og:url" content="https://example.com" />
@@ -31,10 +31,10 @@
 	"servesCuisine": ["Barbecue"],
 	"address": {
 		"@type": "PostalAddress",
-		"streetAddress": "2 Joseph E Lowery Blvd",
-		"addressLocality": "Atlanta",
-		"addressRegion": "GA",
-		"postalCode": "30314",
+		"streetAddress": "1683 Lakewood Ave",
+			"addressLocality": "Atlanta",
+			"addressRegion": "GA",
+			"postalCode": "30315",
 		"addressCountry": "US"
 	},
 	"openingHoursSpecification": [{
@@ -75,6 +75,14 @@
 				{"@type":"MenuItem","name":"Pepsi","offers":{"@type":"Offer","price":1,"priceCurrency":"USD"}},
 				{"@type":"MenuItem","name":"Coke, Sprite","offers":{"@type":"Offer","price":1,"priceCurrency":"USD"}},
 				{"@type":"MenuItem","name":"Bottled Water","offers":{"@type":"Offer","price":1,"priceCurrency":"USD"}}
+			]},
+			{"@type":"MenuSection","name":"Seafood","hasMenuItem":[
+				{"@type":"MenuItem","name":"Fish and Fries","offers":{"@type":"Offer","price":12,"priceCurrency":"USD"}},
+				{"@type":"MenuItem","name":"Shrimp and Fries","offers":{"@type":"Offer","price":14,"priceCurrency":"USD"}},
+				{"@type":"MenuItem","name":"Fish/Shrimp Combo","offers":{"@type":"Offer","price":16,"priceCurrency":"USD"}},
+				{"@type":"MenuItem","name":"Fish and Grits"},
+				{"@type":"MenuItem","name":"Shrimp and Grits"},
+				{"@type":"MenuItem","name":"Shrimp Pasta"}
 			]}
 		]
 	}
@@ -174,41 +182,53 @@
 		<section id="menu" class="menu-preview section-pad" aria-labelledby="menuTitle">
 			<div class="container">
 				<h2 id="menuTitle" class="section-title">Menu</h2>
-				<p class="section-intro">Our current offerings. Items & pricing subject to availability.</p>
+				<p class="section-intro">Our current offerings. Pricing & availability subject to change.</p>
 				<!-- Fallback static menu (used if JSON fails to load). Dynamic script will replace this. -->
 				<div class="menu-grid">
-					<div class="menu-item fade-in"><h3>Sausage Sandwich <span class="price">$5</span></h3><p>Smoked sausage on bun.</p></div>
-					<div class="menu-item fade-in"><h3>Sausage Plate (Includes 2 sides) <span class="price">$12</span></h3><p>Smoked sausage with two sides.</p></div>
-					<div class="menu-item fade-in"><h3>Chicken Sandwich <span class="price">$7</span></h3><p>Pulled or sliced smoked chicken.</p></div>
-					<div class="menu-item fade-in"><h3>Chicken Plate (Includes 2 sides) <span class="price">$14</span></h3><p>Smoked chicken with two sides.</p></div>
-					<div class="menu-item fade-in"><h3>Pork Chop Sandwich <span class="price">$10</span></h3><p>Grilled/Smoked pork chop on bun.</p></div>
-					<div class="menu-item fade-in"><h3>Pork Chop Plate (Includes 2 sides) <span class="price">$17</span></h3><p>Pork chop with two sides.</p></div>
+					<div class="menu-item fade-in"><h3>Sausage Sandwich <span class="price">$5</span></h3></div>
+					<div class="menu-item fade-in"><h3>Sausage Plate (Includes 2 sides) <span class="price">$12</span></h3></div>
+					<div class="menu-item fade-in"><h3>Chicken Sandwich <span class="price">$7</span></h3></div>
+					<div class="menu-item fade-in"><h3>Chicken Plate (Includes 2 sides) <span class="price">$14</span></h3></div>
+					<div class="menu-item fade-in"><h3>Pork Chop Sandwich <span class="price">$10</span></h3></div>
+					<div class="menu-item fade-in"><h3>Pork Chop Plate (Includes 2 sides) <span class="price">$17</span></h3></div>
 				</div>
 				<div class="menu-subgroup" aria-labelledby="ribsTitle">
 					<h3 id="ribsTitle" class="menu-subtitle">Ribs</h3>
 					<div class="menu-grid compact">
-						<div class="menu-item fade-in"><h3>Rib Sandwich / Rib Tip Sandwich <span class="price">$12</span></h3><p>Rib or rib tip sandwich.</p></div>
-						<div class="menu-item fade-in"><h3>Rib Plate / Rib Tip Plate (Includes 2 sides) <span class="price">$19</span></h3><p>Ribs or rib tips with two sides.</p></div>
-						<div class="menu-item fade-in"><h3>Half Slab of Ribs <span class="price">$28</span></h3><p>Half slab smoked ribs.</p></div>
-						<div class="menu-item fade-in"><h3>Full Slab of Ribs <span class="price">$40</span></h3><p>Full slab smoked ribs.</p></div>
+						<div class="menu-item fade-in"><h3>Rib Sandwich / Rib Tip Sandwich <span class="price">$12</span></h3></div>
+						<div class="menu-item fade-in"><h3>Rib Plate / Rib Tip Plate (Includes 2 sides) <span class="price">$19</span></h3></div>
+						<div class="menu-item fade-in"><h3>Half Slab of Ribs <span class="price">$28</span></h3></div>
+						<div class="menu-item fade-in"><h3>Full Slab of Ribs <span class="price">$40</span></h3></div>
 					</div>
 				</div>
 				<div class="menu-subgroup" aria-labelledby="sidesTitle">
 					<h3 id="sidesTitle" class="menu-subtitle">Sides</h3>
 					<div class="menu-grid compact">
-						<div class="menu-item fade-in"><h3>Baked Beans <span class="price">$4</span></h3><p>Slow cooked beans.</p></div>
-						<div class="menu-item fade-in"><h3>Green Beans <span class="price">$4</span></h3><p>Seasoned green beans.</p></div>
-						<div class="menu-item fade-in"><h3>Corn <span class="price">$4</span></h3><p>Butter corn.</p></div>
-						<div class="menu-item fade-in"><h3>Mac &amp; Cheese <span class="price">$4</span></h3><p>Cheesy mac.</p></div>
-						<div class="menu-item fade-in"><h3>Potato Salad <span class="price">$4</span></h3><p>House potato salad.</p></div>
+						<div class="menu-item fade-in"><h3>Baked Beans <span class="price">$4</span></h3></div>
+						<div class="menu-item fade-in"><h3>Green Beans <span class="price">$4</span></h3></div>
+						<div class="menu-item fade-in"><h3>Corn <span class="price">$4</span></h3></div>
+						<div class="menu-item fade-in"><h3>Mac &amp; Cheese <span class="price">$4</span></h3></div>
+						<div class="menu-item fade-in"><h3>Potato Salad <span class="price">$4</span></h3></div>
 					</div>
 				</div>
 				<div class="menu-subgroup" aria-labelledby="drinksTitle">
 					<h3 id="drinksTitle" class="menu-subtitle">Drinks</h3>
 					<div class="menu-grid compact">
-						<div class="menu-item fade-in"><h3>Pepsi <span class="price">$1</span></h3><p>Pepsi.</p></div>
-						<div class="menu-item fade-in"><h3>Coke, Sprite <span class="price">$1</span></h3><p>Coke or Sprite.</p></div>
-						<div class="menu-item fade-in"><h3>Bottled Water <span class="price">$1</span></h3><p>Water.</p></div>
+						<div class="menu-item fade-in"><h3>Pepsi <span class="price">$1</span></h3></div>
+						<div class="menu-item fade-in"><h3>Coke, Sprite <span class="price">$1</span></h3></div>
+						<div class="menu-item fade-in"><h3>Bottled Water <span class="price">$1</span></h3></div>
+				</div>
+			</div>
+			<div class="menu-subgroup" aria-labelledby="seafoodTitle">
+				<h3 id="seafoodTitle" class="menu-subtitle">Seafood</h3>
+				<div class="menu-grid compact">
+					<div class="menu-item fade-in"><h3>Fish and Fries <span class="price">$12</span></h3></div>
+					<div class="menu-item fade-in"><h3>Shrimp and Fries <span class="price">$14</span></h3></div>
+					<div class="menu-item fade-in"><h3>Fish/Shrimp Combo <span class="price">$16</span></h3></div>
+					<div class="menu-item fade-in"><h3>Fish and Grits <span class="price">TBD</span></h3></div>
+					<div class="menu-item fade-in"><h3>Shrimp and Grits <span class="price">TBD</span></h3></div>
+					<div class="menu-item fade-in"><h3>Shrimp Pasta <span class="price">TBD</span></h3></div>
+				</div>
 					</div>
 				</div>
 				<div class="center"><a href="#order" class="btn small">Order Online</a></div>
