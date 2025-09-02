@@ -45,13 +45,26 @@
   });
 })();
 
-// Smooth scroll for internal anchor links
+// Smooth scroll for internal anchor links (with special handling for #top sentinel)
 (function(){
   const links = document.querySelectorAll('a[href^="#"]');
   links.forEach(link => {
     link.addEventListener('click', e => {
       const id = link.getAttribute('href');
-      if(id && id.length > 1){
+      if(!id || id === '#') return;
+      if(id === '#top'){
+        e.preventDefault();
+        // If already near top, optionally force a subtle reset (no refresh by default)
+        if(window.scrollY > 20){
+          window.scrollTo({ top:0, behavior:'smooth' });
+        } else {
+          // Already at top – you could trigger a lightweight UI action here if desired
+          window.scrollTo({ top:0, behavior:'smooth' });
+        }
+        history.replaceState(null,'','#top');
+        return;
+      }
+      if(id.length > 1){
         const target = document.querySelector(id);
         if(target){
           e.preventDefault();
